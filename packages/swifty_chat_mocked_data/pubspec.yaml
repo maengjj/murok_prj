@@ -1,0 +1,24 @@
+name: swifty_chat_mocked_data
+description: Contains mock data for the swifty_chat_data package.
+version: 0.1.1
+publish_to: 'none'
+
+environment:
+  sdk: ">=3.0.1 <4.0.0"
+  flutter: ">=3.10.0"
+
+dependencies:
+  faker: ^2.0.0
+
+  flutter:
+    sdk: flutter
+
+  swifty_chat_data: ^0.1.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  assets:
+    - assets/images/
