@@ -30,16 +30,28 @@ class LoginResponse {
     };
   }
 
-  factory LoginResponse.fromMap(Map<String, dynamic> map) {
+  factory LoginResponse.fromServerResponse(Map<String, dynamic> serverResponse) {
     return LoginResponse(
-      status: map['status'] as bool,
-      msg: map['msg'] as String,
-      token: map['token'] as String,
+      status: serverResponse['isSuccess'] as bool,
+      msg: serverResponse['message'] as String,
+      token: serverResponse['result']['jwt'] as String,
     );
   }
 
+
+  // factory LoginResponse.fromMap(Map<String, dynamic> map) {
+  //   return LoginResponse(
+  //     status: map['status'] as bool,
+  //     msg: map['msg'] as String,
+  //     token: map['token'] as String,
+  //   );
+  // }
+
   String toJson() => json.encode(toMap());
 
+  // factory LoginResponse.fromJson(String source) =>
+  //     LoginResponse.fromMap(json.decode(source) as Map<String, dynamic>);
+
   factory LoginResponse.fromJson(String source) =>
-      LoginResponse.fromMap(json.decode(source) as Map<String, dynamic>);
+      LoginResponse.fromServerResponse(json.decode(source) as Map<String, dynamic>);
 }

@@ -32,9 +32,9 @@ class DashboardRes {
 
   factory DashboardRes.fromMap(Map<String, dynamic> map) {
     return DashboardRes(
-      status: map['status'] as bool,
-      msg: map['msg'] as String,
-      email: map['email'] as String,
+      status: map['isSuccess'] as bool,
+      msg: map['message'] as String,
+      email: map['result']['nickname'] as String,
     );
   }
 

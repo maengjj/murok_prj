@@ -270,7 +270,7 @@ class TodayWater extends StatelessWidget {
                     return Padding(
                       padding: const EdgeInsets.only(right: 5),
                       child: Text(data[index]['name'], style: TextStyle(fontSize: 20, fontWeight: FontWeight.normal, color: Colors.grey)),
-                    );
+                      );
                   }),
                 )
               ],

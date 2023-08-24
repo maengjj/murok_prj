@@ -81,37 +81,23 @@ final class _DecoratedText extends StatelessWidget {
                   : theme.incomingMessageBodyTextStyle,
             ).padding(all: theme.textMessagePadding),
           ),
-          Padding(
-            padding: EdgeInsets.only(
-              left: 12,
-              right: 12,
-              bottom: 6,
-              top: 6,  // Add this line to add space between text and bubble
-            ),
-            child: Text(
-              message.date.relativeTimeFromNow(),
-              style: message.isMe
-                  ? theme.outgoingChatTextTime
-                  : theme.incomingChatTextTime,
-            ),
-          ),
+          // Padding(
+          //   padding: EdgeInsets.only(
+          //     left: 12,
+          //     right: 12,
+          //     bottom: 6,
+          //     top: 6,  // Add this line to add space between text and bubble
+          //   ),
+          //   child: Text(
+          //     message.date.relativeTimeFromNow(),
+          //     style: message.isMe
+          //         ? theme.outgoingChatTextTime
+          //         : theme.incomingChatTextTime,
+          //   ),
+          // ),
         ],
       ),
     );
 
-
-
-
-
-
-
-
-
-
-
-
-
   }
 }
-
-

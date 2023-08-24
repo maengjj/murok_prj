@@ -98,7 +98,14 @@ final class Chat extends StatefulWidget {
 }
 
 final class ChatState extends State<Chat> {
-  bool isWaitingForResponse = false; // isWaitingForResponse 변수 추가
+  bool isButtonVisible = true;  // 버튼 숨김 여부를 관리하는 변수
+
+  void toggleButtonVisibility() {
+    setState(() {
+      isButtonVisible = !isButtonVisible;  // 버튼 숨김 여부 토글
+    });
+  }
+
 
 
 
@@ -119,6 +126,32 @@ final class ChatState extends State<Chat> {
                 scrollController: widget._scrollController,
                 messages: widget.messages,
                 onMessagePressed: widget._onMessagePressed,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  if (isButtonVisible)
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          // 첫 번째 버튼 눌렸을 때 실행할 동작
+                          toggleButtonVisibility();  // 버튼 숨김 여부 토글
+                        },
+                        child: Text('등록'),
+                      ),
+                    ),
+                  SizedBox(width: 16),
+                  if (isButtonVisible)
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          // 두 번째 버튼 눌렸을 때 실행할 동작
+                          toggleButtonVisibility();  // 버튼 숨김 여부 토글
+                        },
+                        child: Text('상담'),
+                      ),
+                    ),
+                ],
               ),
               widget.chatMessageInputField,
             ],

@@ -12,11 +12,23 @@ class ChatBot extends StatefulWidget {
   _ChatBotState createState() => _ChatBotState();
 }
 
+
+enum MessageType {
+  none,
+  registration,
+  consultation,
+}
+
+
 class _ChatBotState extends State<ChatBot> {
   final TextEditingController _messageController = TextEditingController();
   final List<MockMessage> _messages = [];
 
   bool isWaitingForResponse = false;
+
+
+  MessageType currentMessageType = MessageType.none;
+
 
   late Chat chatView;
 
@@ -45,12 +57,11 @@ class _ChatBotState extends State<ChatBot> {
   }
 
 
-  String currentUrl='';
-
 
   Future<void> _sendMessageToServer(String userMessage) async {
     final headers = {'Content-type': 'application/json'};
     final body = json.encode({'message': userMessage});
+
 
     // Add outgoingMessage
     final outgoingMessage = MockMessage(
@@ -69,7 +80,7 @@ class _ChatBotState extends State<ChatBot> {
     // Add a timer to handle response timeout
     // Add a timer to handle response timeout
     if (isWaitingForResponse) {
-      responseTimer = Timer(Duration(seconds: 5), () {
+      responseTimer = Timer(Duration(seconds: 60), () {
         if (isWaitingForResponse) {
           final timeoutErrorMessage = MockMessage(
             date: DateTime.now(),
@@ -91,21 +102,24 @@ class _ChatBotState extends State<ChatBot> {
     try {
       Uri url;
 
+      // 상담일때 1>3 으로 가고 등록일때 0>2 감. 최초에는 3번으로 감
       if (userMessage.contains('등록')) {
-        url = Uri.parse('http://15.164.103.233:3000/app/plants/GPT/2');
+        url = Uri.parse('http://15.164.103.233:3000/app/plants/GPT/0');
+        currentMessageType = MessageType.registration;
+        print(url);
         print('등록');
       } else if (userMessage.contains('상담')) {
-        url = Uri.parse('http://15.164.103.233:3000/app/plants/GPT/2');
+        url = Uri.parse('http://15.164.103.233:3000/app/plants/GPT/1');
+        currentMessageType = MessageType.consultation;
+        print(url);
         print('상담');
       } else {
-        // url = Uri.parse('http://15.164.103.233:3000/app/plants/GPT/2');
-        // if (currentUrl == '') {
-        //   print('No valid URL available');
-        //   return;}
-        // url = Uri.parse(currentUrl);
-        url = Uri.parse('http://15.164.103.233:3000/app/plants/GPT/2');
-        // shouldStayOnUrl = false;
+        url = currentMessageType == MessageType.registration
+            ? Uri.parse('http://15.164.103.233:3000/app/plants/GPT/2')
+            : Uri.parse('http://15.164.103.233:3000/app/plants/GPT/3');
+        print(url);
       }
+
 
       final response = await http.post(url, headers: headers, body: body);
 
@@ -130,8 +144,7 @@ class _ChatBotState extends State<ChatBot> {
           chatView.scrollToBottom();
         });
 
-        // Update currentUrl with the current URL
-        currentUrl = url.toString();
+
 
 
       } else {

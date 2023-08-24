@@ -167,8 +167,6 @@ class _MainPageState extends State<MainPage> {
 
 
 
-
-
   Future<void> _sendGetRequestWithToken() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('deviceToken');

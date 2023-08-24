@@ -10,6 +10,7 @@ import 'intro_page.dart';
 import 'chatbot.dart';
 import 'profile_page.dart';
 import 'layout.dart';
+import 'dashboard.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -104,8 +105,8 @@ class LoginPage extends StatelessWidget {
                             minWidth: double.infinity,
                             height: 60,
                             onPressed: () {
-                              Get.to(() => LayoutPage());
-                              //  로그인 구현!!!! loginUser(emailController, passController);
+                              // Get.to(() => LayoutPage());
+                               loginUser(emailController, passController);  //로그인 구현!!!!
                             },
                             color: const Color(0xFFFFFFFF),
                             elevation: 0,
@@ -212,8 +213,9 @@ void loginUser(emailController, passController) {
           {
             emailController.clear(),
             passController.clear(),
-            Future.delayed(const Duration(seconds: 2),
+            Future.delayed(const Duration(seconds: 1),
                 () => {Get.offAll(() => LayoutPage())})
+                // () => {Get.offAll(() => DashboardPage())})
           }
       });
 }
