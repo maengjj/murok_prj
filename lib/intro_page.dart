@@ -40,7 +40,7 @@ class IntroPage extends StatelessWidget {
                 Container(child: Image.asset('assets/murok_logo.png', width:150,),
                 padding: EdgeInsets.only(bottom: 10),), // 추가 이미지 설정
 
-                const Text("나만의 텃밭 행성 키우기", style: TextStyle(fontSize: 20, color: Colors.white)),
+                const Text("나의 텃밭 길잡이", style: TextStyle(fontSize: 20, color: Colors.white)),
                 SizedBox(height: 50),
                 Column(
                   children: <Widget>[

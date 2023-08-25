@@ -63,58 +63,67 @@ Future<bool> loginUserWithEmail(String email, String pass) async {
 
 
 
-Future<bool> registerUser(String uemail, String pass, String name, String nickname, String phone) async {
-  if (uemail != '' && pass != '' && name != '' && nickname != '' && phone != '') {
-    // var url = Uri.http('http://15.164.103.233:3000', 'app/users');
-    var url = Uri.parse('http://15.164.103.233:3000/app/users');
-    User user = User(email: uemail, passwrd: pass, name: name, nickname: nickname, phoneNum: phone);
-    Map<String, String> headers = {'Content-type': 'application/json'};
-    var response = await http.post(url, headers: headers, body: user.toJson());
-    print(response.body);
-    var data = SignResponse.fromJson(response.body);
+Future<bool> registerUser(String uemail, String pass, String cpass, String name, String nickname, String phone) async {
+  if (uemail != '' && pass != '' && name != '' && nickname != '' && phone != '' && cpass != '') {
+    if (pass == cpass) {
+      // var url = Uri.http('http://15.164.103.233:3000', 'app/users');
+      var url = Uri.parse('http://15.164.103.233:3000/app/users');
+      User user = User(email: uemail,
+          passwrd: pass,
+          name: name,
+          nickname: nickname,
+          phoneNum: phone);
+      Map<String, String> headers = {'Content-type': 'application/json'};
+      var response = await http.post(
+          url, headers: headers, body: user.toJson());
+      print(response.body);
+      var data = SignResponse.fromJson(response.body);
 
-    // Get.showSnackbar(GetSnackBar(
-    //   title: "회원가입 성공",
-    //   message: data.getMsg,
-    //   snackPosition: SnackPosition.TOP,
-    //   duration: const Duration(seconds: 5),
-    // )
-    // );
-
-    if (response.statusCode == 200) {
-      if (data.getStatus == true) {
-        Get.showSnackbar(GetSnackBar(
-          title: "회원가입 성공",
-          message: data.getMsg,
-          snackPosition: SnackPosition.TOP,
-          duration: const Duration(seconds: 5),
-        )
-        );
-        return true;
+      // Get.showSnackbar(GetSnackBar(
+      //   title: "회원가입 성공",
+      //   message: data.getMsg,
+      //   snackPosition: SnackPosition.TOP,
+      //   duration: const Duration(seconds: 5),
+      // )
+      // );
+      if (response.statusCode == 200) {
+        if (data.getStatus == true) {
+          Get.showSnackbar(GetSnackBar(
+            title: "회원가입 성공",
+            message: data.getMsg,
+            snackPosition: SnackPosition.TOP,
+            duration: const Duration(seconds: 2),
+          )
+          );
+          return true;
+        }
+        else {
+          Get.showSnackbar(GetSnackBar(
+            title: "회원가입 실패",
+            message: data.getMsg,
+            snackPosition: SnackPosition.TOP,
+            duration: const Duration(seconds: 2),
+          )
+          );
+          return false;
+        }
       }
-      else {
-        Get.showSnackbar(GetSnackBar(
-          title: "회원가입 실패",
-          message: data.getMsg,
-          snackPosition: SnackPosition.TOP,
-          duration: const Duration(seconds: 5),
-        )
-        );
-        return false;
-      }
-
-      return true;
+      return false;
     }
+    Get.showSnackbar(const GetSnackBar(
+      duration: Duration(seconds: 2),
+      snackPosition: SnackPosition.TOP,
+      title: "회원가입 실패",
+      message: "비밀번호를 확인해주세요.",
+    ));
     return false;
   }
-
   Get.showSnackbar(const GetSnackBar(
     duration: Duration(seconds: 2),
     snackPosition: SnackPosition.TOP,
-    title: "회원가입",
+    title: "회원가입 실패",
     message: "모든 정보를 입력해주세요.",
   ));
-
   return false;
 }
 

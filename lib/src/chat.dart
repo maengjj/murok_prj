@@ -9,6 +9,13 @@ import 'package:murok_prj/src/theme/chat_theme.dart';
 import 'package:murok_prj/src/theme/default_theme.dart';
 import 'package:murok_prj/chatbot.dart';
 import 'package:swifty_chat_data/swifty_chat_data.dart';
+import 'package:swifty_chat_mocked_data/swifty_chat_mocked_data.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'package:murok_prj/swifty_chat.dart';
+
+
 
 
 
@@ -31,7 +38,7 @@ final class ChatStateContainer extends InheritedWidget {
 
   static ChatStateContainer of(BuildContext context) {
     final ChatStateContainer? result =
-        context.dependOnInheritedWidgetOfExactType<ChatStateContainer>();
+    context.dependOnInheritedWidgetOfExactType<ChatStateContainer>();
     assert(result != null, 'No Chat found in context');
     return result!;
   }
@@ -97,8 +104,10 @@ final class Chat extends StatefulWidget {
   }
 }
 
+
 final class ChatState extends State<Chat> {
   bool isButtonVisible = true;  // 버튼 숨김 여부를 관리하는 변수
+
 
   void toggleButtonVisibility() {
     setState(() {
@@ -106,60 +115,69 @@ final class ChatState extends State<Chat> {
     });
   }
 
+  List<Message> messages = []; // 이 줄을 추가
+
 
 
 
   @override
   Widget build(BuildContext context) => ChatStateContainer(
-        messageCellSizeConfigurator: widget.messageCellSizeConfigurator ??
-            MessageCellSizeConfigurator.defaultConfiguration(),
-        onHtmlWidgetPressed: widget._onHtmlWidgetPressed,
-        onQuickReplyItemPressed: widget._onQuickReplyItemPressed,
-        onCarouselButtonItemPressed: widget._onCarouselButtonItemPressed,
-        customMessageWidget: widget.customMessageWidget,
-        child: InheritedChatTheme(
-          theme: widget.theme,
-          child: Column(
-            children: [
-              _ChatMessages(
-                backgroundColor: widget.theme.backgroundColor,
-                scrollController: widget._scrollController,
-                messages: widget.messages,
-                onMessagePressed: widget._onMessagePressed,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  if (isButtonVisible)
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          // 첫 번째 버튼 눌렸을 때 실행할 동작
-                          toggleButtonVisibility();  // 버튼 숨김 여부 토글
-                        },
-                        child: Text('등록'),
-                      ),
-                    ),
-                  SizedBox(width: 16),
-                  if (isButtonVisible)
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          // 두 번째 버튼 눌렸을 때 실행할 동작
-                          toggleButtonVisibility();  // 버튼 숨김 여부 토글
-                        },
-                        child: Text('상담'),
-                      ),
-                    ),
-                ],
-              ),
-              widget.chatMessageInputField,
-            ],
-          ).gestures(
-            onTap: () => FocusScope.of(context).unfocus(),
+    messageCellSizeConfigurator: widget.messageCellSizeConfigurator ??
+        MessageCellSizeConfigurator.defaultConfiguration(),
+    onHtmlWidgetPressed: widget._onHtmlWidgetPressed,
+    onQuickReplyItemPressed: widget._onQuickReplyItemPressed,
+    onCarouselButtonItemPressed: widget._onCarouselButtonItemPressed,
+    customMessageWidget: widget.customMessageWidget,
+    child: InheritedChatTheme(
+      theme: widget.theme,
+      child: Column(
+        children: [
+          _ChatMessages(
+            backgroundColor: widget.theme.backgroundColor,
+            scrollController: widget._scrollController,
+            messages: widget.messages,
+            onMessagePressed: widget._onMessagePressed,
           ),
-        ),
-      );
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              if (isButtonVisible)
+                Expanded(
+                  child: ElevatedButton(
+
+                    onPressed: ()  {
+
+
+
+                      toggleButtonVisibility();  // 버튼 숨김 여부 토글
+
+
+
+                    },
+                    child: Text('등록'),
+                  ),
+                ),
+              SizedBox(width: 16),
+              if (isButtonVisible)
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // 두 번째 버튼 눌렸을 때 실행할 동작
+                      toggleButtonVisibility();  // 버튼 숨김 여부 토글
+                    },
+                    child: Text('상담'),
+                  ),
+                ),
+            ],
+          ),
+          widget.chatMessageInputField,
+        ],
+      ).gestures(
+        onTap: () => FocusScope.of(context).unfocus(),
+      ),
+    ),
+  );
 }
 
 final class _ChatMessages extends StatelessWidget {

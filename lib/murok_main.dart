@@ -30,12 +30,16 @@ class _MurokMainState extends State<MurokMain> {
 
   Future<String> getData() async {
     http.Response response = await http.get(
-      Uri.parse('http://15.164.103.233:3000/app/plants'),
+      Uri.parse('http://15.164.103.233:3000/app/plants/freq'),
     );
+
+    print(response);
 
     setState(() {
       data = json.decode(response.body);
     });
+
+    print(response);
 
     print(data);
     return "success";
@@ -86,7 +90,7 @@ class _MurokMainState extends State<MurokMain> {
         //     toolbarHeight: 80),
         body: SlidingUpPanel(
           minHeight: 100,
-          maxHeight: 550,
+          maxHeight: 430,
           borderRadius: radius,
           panel: Column(
             children: [
@@ -102,7 +106,7 @@ class _MurokMainState extends State<MurokMain> {
                     height: 1.2,
                   ),),
                 padding: EdgeInsets.all(10),
-                margin: EdgeInsets.fromLTRB(0, 0, 0, 40),),
+                margin: EdgeInsets.fromLTRB(0, 0, 0, 20),),
               Column(
                 children: [
                   TodayWater(data),
@@ -259,18 +263,18 @@ class TodayWater extends StatelessWidget {
     return Container(
       child: Row(
         children: [
-          Image(image: AssetImage('images/todaywater.png'), width : 100),
+          Image(image: AssetImage('images/todaywater.png'), width : 70),
           Container(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('물 주기', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, height: 2.0, color: Colors.blueGrey.shade700)),
+                Text('물 주기', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, height: 1.5, color: Colors.blueGrey.shade700)),
                 Row(
                   children: List.generate(data.length, (index) {
                     return Padding(
                       padding: const EdgeInsets.only(right: 5),
-                      child: Text(data[index]['name'], style: TextStyle(fontSize: 20, fontWeight: FontWeight.normal, color: Colors.grey)),
-                      );
+                      child: Text(data[index]['name'], style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal, color: Colors.grey)),
+                    );
                   }),
                 )
               ],
@@ -293,17 +297,17 @@ class TodaySolid extends StatelessWidget {
     return Container(
       child: Row(
         children: [
-          Image(image: AssetImage('images/todaysolid.png'), width : 100),
+          Image(image: AssetImage('images/todaysolid.png'), width : 70),
           Container(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('분갈이 하기', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, height: 2.0, color: Colors.blueGrey.shade700)),
+                Text('분갈이 하기', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, height: 1.5, color: Colors.blueGrey.shade700)),
                 Row(
                   children: List.generate(data.length, (index) {
                     return Padding(
                       padding: const EdgeInsets.only(right: 5),
-                      child: Text(data[index]['name'], style: TextStyle(fontSize: 20, fontWeight: FontWeight.normal, color: Colors.grey)),
+                      child: Text(data[index]['name'], style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal, color: Colors.grey)),
                     );
                   }),
                 )
@@ -328,17 +332,17 @@ class TodayNutrition extends StatelessWidget {
     return Container(
       child: Row(
         children: [
-          Image(image: AssetImage('images/todaynutrition.png'), width : 100),
+          Image(image: AssetImage('images/todaynutrition.png'), width : 70),
           Container(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('영양제 주기', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, height: 2.0, color: Colors.blueGrey.shade700)),
+                Text('영양제 주기', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, height: 1.5, color: Colors.blueGrey.shade700)),
                 Row(
                   children: List.generate(data.length, (index) {
                     return Padding(
                       padding: const EdgeInsets.only(right: 5),
-                      child: Text(data[index]['name'], style: TextStyle(fontSize: 20, fontWeight: FontWeight.normal, color: Colors.grey)),
+                      child: Text(data[index]['name'], style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal, color: Colors.grey)),
                     );
                   }),
                 )

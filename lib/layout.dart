@@ -8,6 +8,8 @@ import 'package:get/get.dart';
 import 'alarm_note.dart';
 import 'login.dart';
 import 'my_vegetables.dart';
+import 'utils/helper.dart';
+
 
 class LayoutPage extends StatefulWidget {
   LayoutPage({Key? key, this.title= ''}) : super(key: key);
@@ -41,7 +43,8 @@ class _LayoutPageState extends State<LayoutPage> {
     Text('무럭이와 대화',
           style: TextStyle(
           fontWeight: FontWeight.bold,
-          fontSize: 30.0,
+          fontSize: 24.0,
+          height: 1.2,
           fontFamily: 'sans-serif-light',
           color: Colors.white,
           ),
@@ -49,7 +52,8 @@ class _LayoutPageState extends State<LayoutPage> {
     Image.asset('images/wlogo.png', width: 80,), // 두 번째 페이지에 이미지
     Text("마이페이지",style: TextStyle(
           fontWeight: FontWeight.bold,
-          fontSize: 30.0,
+          fontSize: 24.0,
+          height: 1.2,
           fontFamily: 'sans-serif-light',
           color: Colors.white,),), // 세 번째 페이지에 텍스트
   ];
@@ -122,7 +126,21 @@ class SideBarList extends StatelessWidget {
             ),
             accountName: Text('무럭이',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
-            accountEmail: Text('muroki@gmail.com'),
+            accountEmail: FutureBuilder(
+                future: getUserProfile(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Text(snapshot.data!.email,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16.0,
+                        fontFamily: 'sans-serif-light',
+                        color: Colors.grey,
+                      ),);
+                  }
+                  else {return Text('');}
+                }
+            ),
             onDetailsPressed: () {},
             decoration: BoxDecoration(
               color: Color(0xff06C09F),

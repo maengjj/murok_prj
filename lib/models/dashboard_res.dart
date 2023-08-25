@@ -5,10 +5,16 @@ class DashboardRes {
   bool status;
   String msg;
   String email;
+  String nickname;
+  String phoneNum;
+  String name;
   DashboardRes({
     required this.status,
     required this.msg,
     required this.email,
+    required this.nickname,
+    required this.phoneNum,
+    required this.name,
   });
   get getStatus => status;
 
@@ -22,11 +28,27 @@ class DashboardRes {
 
   void setEmail(email) => this.email = email;
 
+  get getNickname => nickname;
+
+  void setNickname(nickname) => this.nickname = nickname;
+
+  get getPhoneNum => phoneNum;
+
+  void setPhoneNum(phoneNum) => this.phoneNum = phoneNum;
+
+  get getName => name;
+
+  void setName(name) => this.name = name;
+
+
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'status': status,
       'msg': msg,
       'email': email,
+      'nickname': nickname,
+      'phoneNum' : phoneNum,
+      'name' : name
     };
   }
 
@@ -34,7 +56,10 @@ class DashboardRes {
     return DashboardRes(
       status: map['isSuccess'] as bool,
       msg: map['message'] as String,
-      email: map['result']['nickname'] as String,
+      email: map['result']['email'] as String,
+      nickname: map['result']['nickname'] as String,
+      phoneNum: map['result']['phoneNum'] as String,
+      name: map['result']['name'] as String,
     );
   }
 

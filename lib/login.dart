@@ -94,6 +94,32 @@ class LoginPage extends StatelessWidget {
                           ],
                         ),
                       ),
+                      // Padding(
+                      //   padding: const EdgeInsets.symmetric(horizontal: 20),
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.start,
+                      //     // crossAxisAlignment: CrossAxisAlignment.start,
+                      //     children: [
+                      //
+                      //       Transform.scale(
+                      //         scale: 1.0,
+                      //         child: Checkbox(
+                      //           activeColor: Colors.white,
+                      //           checkColor: Colors.green,
+                      //           value: false,
+                      //           onChanged: (value) {
+                      //
+                      //             // setState(() {
+                      //             //   _checkBoxValue3 = value;
+                      //             // }
+                      //             // );
+                      //           },
+                      //         ),
+                      //       ),
+                      //       Text('초록색 '),
+                      //     ],
+                      //   )
+                      // ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 40),
                         child: Container(

@@ -13,7 +13,7 @@ class SignupPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var emailController = TextEditingController();
     var passController = TextEditingController();
-    // var cPassController = TextEditingController();
+    var cPassController = TextEditingController();
     var nameController = TextEditingController();
     var nicknameController = TextEditingController();
     var phoneController = TextEditingController();
@@ -87,7 +87,7 @@ class SignupPage extends StatelessWidget {
                   makeInput(
                       label: "비밀번호 확인",
                       obscureText: true,
-                      controller: passController),
+                      controller: cPassController),
                   makeInput(label: "전화번호", controller: phoneController),
                 ],
               ),
@@ -101,7 +101,7 @@ class SignupPage extends StatelessWidget {
                   height: 60,
                   onPressed: () {
                     singupUser(
-                        emailController, passController, nameController, nicknameController, phoneController);
+                        emailController, passController, cPassController, nameController, nicknameController, phoneController);
                   },
                   color: const Color(0xFF087560),
                   elevation: 0,
@@ -201,14 +201,15 @@ class SignupPage extends StatelessWidget {
     );
   }
 
-  void singupUser(emailController, passController, nameController, nicknameController, phoneController) {
-    registerUser(emailController.text.trim(), passController.text.trim(),
+  void singupUser(emailController, passController, cPassController, nameController, nicknameController, phoneController) {
+    registerUser(emailController.text.trim(), passController.text.trim(), cPassController.text.trim(),
             nameController.text.trim(), nicknameController.text.trim(), phoneController.text.trim())
         .then((value) => {
               if (value)
                 {
                   emailController.clear(),
                   passController.clear(),
+                  cPassController.clear(),
                   nameController.clear(),
                   nicknameController.clear(),
                   phoneController.clear(),

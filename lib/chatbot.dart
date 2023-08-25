@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'dart:async';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class ChatBot extends StatefulWidget {
   @override
@@ -34,6 +36,10 @@ class _ChatBotState extends State<ChatBot> {
 
   Timer? responseTimer; // responseTimer 변수 선언
 
+
+
+
+
   @override
   void initState() {
     super.initState();
@@ -51,15 +57,21 @@ class _ChatBotState extends State<ChatBot> {
       user: MockChatUser.incomingUser,
       id: DateTime.now().toString(),
       isMe: false,
-      messageKind: MessageKind.text("안녕하세요! 나는 무럭이에요.\n오늘 뭐할지 나에게 알려준다면 최대한 도와줄께요."),
+      messageKind: MessageKind.text("안녕하세요! 저는 무럭이에요.\n오늘 뭐할지 저에게 알려주면 최대한 도와드릴게요."),
     );
     _messages.add(initialResponse2);
   }
 
 
 
+
+
   Future<void> _sendMessageToServer(String userMessage) async {
-    final headers = {'Content-type': 'application/json'};
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? token = prefs.getString('token');
+
+    final headers = {'Content-type': 'application/json',
+      'x-access-token': '$token'};
     final body = json.encode({'message': userMessage});
 
 
@@ -116,7 +128,7 @@ class _ChatBotState extends State<ChatBot> {
       } else {
         url = currentMessageType == MessageType.registration
             ? Uri.parse('http://15.164.103.233:3000/app/plants/GPT/2')
-            : Uri.parse('http://15.164.103.233:3000/app/plants/GPT/3');
+            : Uri.parse('http://15.164.103.233:3000/app/plants/consult');
         print(url);
       }
 

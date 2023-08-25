@@ -73,7 +73,8 @@ class _AlarmNoteState extends State<AlarmNote> {
           '알림',
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 30.0,
+            fontSize: 24.0,
+            height: 1.2,
             fontFamily: 'sans-serif-light',
             color: Colors.white,
           ),

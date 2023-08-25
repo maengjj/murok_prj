@@ -149,7 +149,7 @@ class _MainPageState extends State<MainPage> {
 
 
     userProfileAvailble().then((value) async => {
-      Timer(const Duration(seconds: 5), () {
+      Timer(const Duration(seconds: 3), () {
         if (value) {
           Get.off(() => const IntroPage());
         } else {
@@ -207,23 +207,10 @@ class _MainPageState extends State<MainPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // const Text("Welcome Back", style: TextStyle(fontSize: 24)),
-              // const SizedBox(height: 10),
-              // const Text("Nce to see you again!", style: TextStyle(fontSize: 18)),
-              // SizedBox(
-              //     height: MediaQuery.of(context).size.height / 3,
-              //     // height: 400,
-              //     child: const Image(
-              //       colorBlendMode: BlendMode.overlay,
-              //       image: AssetImage('assets/murok_circle.png'),
-              //       width: 250,
-              //       height: 250,
-              //     )),
-              // const SizedBox(height: 5),
-              Container(child: Image.asset('assets/murok_logo.png', width: 150,),
+              Container(child: Image.asset('assets/murok_logo.png', width: 100,),
                 padding: EdgeInsets.only(bottom: 10),), // 추가 이미지 설정
               // const SizedBox(height: 30),
-              const Text("나만의 텃밭 행성 키우기", style: TextStyle(fontSize: 24, color: Colors.white)),
+              const Text("나만의 텃밭 길잡이", style: TextStyle(fontSize: 24, color: Colors.white)),
               const SizedBox(height: 60),
               const CircularProgressIndicator(color: Colors.white),
             ],

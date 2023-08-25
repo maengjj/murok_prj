@@ -98,36 +98,35 @@ class _MyVegetablesState extends State<MyVegetables> {
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.blueGrey.shade500,
-                                  height: 1.5,
                                 ),
                               ),
                               margin: EdgeInsets.fromLTRB(0, 5, 0, 5),
                             ),
                             new Text(
                               '심은 날짜 | ' +
-                                  DateFormat('yyyy년 MM월 dd일').format(
+                                  DateFormat('yyyy/MM/dd').format(
                                     DateTime.parse(data[index]["frequency_start"]),
                                   ),
                               style: TextStyle(
                                 fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.blueGrey.shade800,
+                                fontWeight: FontWeight.normal,
+                                color: Colors.grey,
                               ),
                             ),
                             new Text(
                               '적정 온도 | ' + data[index]["temperature"],
                               style: TextStyle(
                                 fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.blueGrey.shade800,
+                                fontWeight: FontWeight.normal,
+                                color: Colors.grey,
                               ),
                             ),
                             new Text(
                               '적정 토양 | ' + data[index]["soil_type"],
                               style: TextStyle(
                                 fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.blueGrey.shade800,
+                                fontWeight: FontWeight.normal,
+                                color: Colors.grey,
                               ),
                             ),
                           ],
