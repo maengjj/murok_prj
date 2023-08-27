@@ -148,6 +148,9 @@ final class ChatState extends State<Chat> {
 
                     onPressed: ()  {
 
+                      // ChatBot.sendMessage("등록하기");
+
+
 
 
                       toggleButtonVisibility();  // 버튼 숨김 여부 토글

@@ -7,6 +7,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'swifty_chat.dart';
+
 
 
 class ChatBot extends StatefulWidget {
@@ -22,6 +24,19 @@ enum MessageType {
 }
 
 
+class CustomQuickReplyItem extends QuickReplyItem {
+  const CustomQuickReplyItem({
+    required String title,
+    String? payload,
+    String? url,
+  }) : super(title: title, payload: payload, url: url);
+}
+
+
+
+
+
+
 class _ChatBotState extends State<ChatBot> {
   final TextEditingController _messageController = TextEditingController();
   final List<MockMessage> _messages = [];
@@ -35,7 +50,6 @@ class _ChatBotState extends State<ChatBot> {
   late Chat chatView;
 
   Timer? responseTimer; // responseTimer 변수 선언
-
 
 
 
@@ -60,6 +74,29 @@ class _ChatBotState extends State<ChatBot> {
       messageKind: MessageKind.text("안녕하세요! 저는 무럭이에요.\n오늘 뭐할지 저에게 알려주면 최대한 도와드릴게요."),
     );
     _messages.add(initialResponse2);
+
+
+
+    List<QuickReplyItem> quickReplies = [
+      CustomQuickReplyItem(title: "등록"),
+      CustomQuickReplyItem(title: "상담"),
+    ];
+
+    final initialResponse3 = MockMessage(
+      date: DateTime.now(),
+      user: MockChatUser.incomingUser,
+      id: DateTime.now().toString(),
+      isMe: false,
+      messageKind: MessageKind.quickReply(quickReplies),
+    );
+    setState(() {
+      // isWaitingForResponse = true;
+      _messages.insert(0, initialResponse3);
+      print(initialResponse3);
+    });
+
+
+
   }
 
 
@@ -73,6 +110,12 @@ class _ChatBotState extends State<ChatBot> {
     final headers = {'Content-type': 'application/json',
       'x-access-token': '$token'};
     final body = json.encode({'message': userMessage});
+
+
+
+
+
+
 
 
     // Add outgoingMessage
@@ -242,6 +285,27 @@ class _ChatBotState extends State<ChatBot> {
                   );
                 },
               ),
+            )
+                .setOnQuickReplyItemPressed(
+                  (item) {
+                debugPrint(item.title);
+                final message = MockMessage(
+                  date: DateTime.now(),
+                  user: MockChatUser.outgoingUser,
+                  id: DateTime.now().toString(),
+                  isMe: true,
+                  messageKind: MessageKind.text(item.title),
+                );
+                // _messages.insert(0, message);
+                chatView.scrollToBottom();
+                setState(() {
+                  _messages.insert(0, message);
+                });
+              },
+            ).setOnMessagePressed(
+                  (message) {
+                debugPrint(message.messageKind.toString());
+              },
             ),
           ),
 
@@ -272,5 +336,26 @@ class _ChatBotState extends State<ChatBot> {
         );
       },
     ),
+  )
+      .setOnQuickReplyItemPressed(
+        (item) {
+      debugPrint(item.title);
+      final message = MockMessage(
+        date: DateTime.now(),
+        user: MockChatUser.outgoingUser,
+        id: DateTime.now().toString(),
+        isMe: true,
+        messageKind: MessageKind.text(item.title),
+      );
+      // _messages.insert(0, message);
+      chatView.scrollToBottom();
+      setState(() {
+        _messages.insert(0, message);
+      });
+    },
+  ).setOnMessagePressed(
+        (message) {
+      print(message.messageKind.toString());
+    },
   );
 }

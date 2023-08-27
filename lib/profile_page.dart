@@ -98,7 +98,6 @@ class MapScreenState extends State<ProfilePage>
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 16.0,
-                                            fontFamily: 'sans-serif-light',
                                             color: Colors.grey,
                                           ),);
                                       }

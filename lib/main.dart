@@ -78,7 +78,9 @@ void main() async {
   // await FirebaseMessaging.instance.getToken();
   initializeNotification();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  runApp(const GetMaterialApp(
+  runApp(GetMaterialApp(
+      theme: ThemeData(fontFamily: 'Pretendard'),
+      themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false, home: MainPage()));
 }
 

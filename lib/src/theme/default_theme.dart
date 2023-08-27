@@ -21,7 +21,7 @@ final class DefaultChatTheme extends ChatTheme {
   @override
   TextStyle get incomingMessageBodyTextStyle => const TextStyle(
         color: neutral0,
-        fontFamily: 'Avenir',
+        fontFamily: 'Pretendard',
         fontSize: 16,
         fontWeight: FontWeight.w500,
         height: 1.5,
@@ -30,7 +30,7 @@ final class DefaultChatTheme extends ChatTheme {
   @override
   TextStyle get outgoingMessageBodyTextStyle => const TextStyle(
         color: neutral7,
-        fontFamily: 'Avenir',
+        fontFamily: 'Pretendard',
         fontSize: 16,
         fontWeight: FontWeight.w500,
         height: 1.5,
@@ -39,7 +39,7 @@ final class DefaultChatTheme extends ChatTheme {
   @override
   TextStyle get incomingChatTextTime => const TextStyle(
         color: neutral0,
-        fontFamily: 'Avenir',
+        fontFamily: 'Pretendard',
         fontSize: 12,
         fontWeight: FontWeight.w500,
         height: 0.3,
@@ -48,7 +48,7 @@ final class DefaultChatTheme extends ChatTheme {
   @override
   TextStyle get outgoingChatTextTime => const TextStyle(
         color: neutral7,
-        fontFamily: 'Avenir',
+        fontFamily: 'Pretendard',
         fontSize: 12,
         fontWeight: FontWeight.w500,
         height: 0.3,
@@ -57,7 +57,7 @@ final class DefaultChatTheme extends ChatTheme {
   @override
   TextStyle get htmlWidgetTextTime => const TextStyle(
         color: neutral0,
-        fontFamily: 'Avenir',
+        fontFamily: 'Pretendard',
         fontSize: 12,
         fontWeight: FontWeight.w500,
         height: 1.5,
@@ -66,7 +66,7 @@ final class DefaultChatTheme extends ChatTheme {
   @override
   TextStyle get imageWidgetTextTime => const TextStyle(
         color: neutral7,
-        fontFamily: 'Avenir',
+        fontFamily: 'Pretendard',
         fontSize: 12,
         fontWeight: FontWeight.w500,
         height: 1.5,
@@ -82,7 +82,7 @@ final class DefaultChatTheme extends ChatTheme {
   TextStyle get carouselTitleTextStyle => const TextStyle(
         color: neutral0,
         fontSize: 19,
-        fontFamily: 'Avenir',
+        fontFamily: 'Pretendard',
         fontWeight: FontWeight.bold,
       );
 
@@ -90,7 +90,7 @@ final class DefaultChatTheme extends ChatTheme {
   TextStyle get carouselSubtitleTextStyle => const TextStyle(
         color: neutral0,
         fontSize: 16,
-        fontFamily: 'Avenir',
+        fontFamily: 'Pretendard',
       );
 
   @override
@@ -118,7 +118,7 @@ final class DefaultChatTheme extends ChatTheme {
   Color get htmlTextColor => neutral0;
 
   @override
-  String? get htmlTextFontFamily => 'Avenir';
+  String? get htmlTextFontFamily => 'Pretendard';
 }
 
 /// Dark chat theme which extends [ChatTheme]
@@ -142,7 +142,7 @@ class DarkChatTheme extends ChatTheme {
   TextStyle get incomingMessageBodyTextStyle => const TextStyle(
         color: Color(0xffffffff),
         // color: Colors.black,
-        fontFamily: 'Avenir',
+        fontFamily: 'Pretendard',
         fontSize: 15,
         fontWeight: FontWeight.w600,
         height: 1.5,
@@ -151,7 +151,7 @@ class DarkChatTheme extends ChatTheme {
   @override
   TextStyle get outgoingMessageBodyTextStyle => const TextStyle(
         color: Color(0xffffffff),
-        fontFamily: 'Avenir',
+        fontFamily: 'Pretendard',
         fontSize: 15,
         fontWeight: FontWeight.w600,
         height: 1.5,
@@ -161,7 +161,7 @@ class DarkChatTheme extends ChatTheme {
   TextStyle get incomingChatTextTime => const TextStyle(
         // color: Color(0xff06C09F),
         color: Colors.black,
-        fontFamily: 'Avenir',
+        fontFamily: 'Pretendard',
         fontSize: 12,
         fontWeight: FontWeight.w500,
         height: 0.3,
@@ -171,7 +171,7 @@ class DarkChatTheme extends ChatTheme {
   TextStyle get outgoingChatTextTime => const TextStyle(
         // color: Color(0xff06C09F),
         color: Colors.black,
-        fontFamily: 'Avenir',
+        fontFamily: 'Pretendard',
         fontSize: 12,
         fontWeight: FontWeight.w500,
         height: 0.3,
@@ -180,7 +180,7 @@ class DarkChatTheme extends ChatTheme {
   @override
   TextStyle get htmlWidgetTextTime => const TextStyle(
         color: neutral7,
-        fontFamily: 'Avenir',
+        fontFamily: 'Pretendard',
         fontSize: 12,
         fontWeight: FontWeight.w500,
         height: 1.5,
@@ -189,7 +189,7 @@ class DarkChatTheme extends ChatTheme {
   @override
   TextStyle get imageWidgetTextTime => const TextStyle(
         color: neutral7,
-        fontFamily: 'Avenir',
+        fontFamily: 'Pretendard',
         fontSize: 12,
         fontWeight: FontWeight.w500,
         height: 1.5,
@@ -205,7 +205,7 @@ class DarkChatTheme extends ChatTheme {
   TextStyle get carouselTitleTextStyle => const TextStyle(
         color: neutral7,
         fontSize: 19,
-        fontFamily: 'Avenir',
+        fontFamily: 'Pretendard',
         fontWeight: FontWeight.bold,
       );
 
@@ -213,7 +213,7 @@ class DarkChatTheme extends ChatTheme {
   TextStyle get carouselSubtitleTextStyle => const TextStyle(
         color: neutral7,
         fontSize: 19,
-        fontFamily: 'Avenir',
+        fontFamily: 'Pretendard',
       );
 
   @override
@@ -241,5 +241,5 @@ class DarkChatTheme extends ChatTheme {
   Color get htmlTextColor => neutral7;
 
   @override
-  String? get htmlTextFontFamily => 'Avenir';
+  String? get htmlTextFontFamily => 'Pretendard';
 }

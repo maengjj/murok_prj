@@ -124,8 +124,20 @@ class SideBarList extends StatelessWidget {
               backgroundImage: AssetImage('images/circle_muroki.png',),
               backgroundColor: Color(0xff06C09F),
             ),
-            accountName: Text('무럭이',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+            accountName: FutureBuilder(
+                future: getUserProfile(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Text(snapshot.data!.nickname,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20.0,
+                        color: Colors.white,
+                      ),);
+                  }
+                  else {return Text('');}
+                }
+            ),
             accountEmail: FutureBuilder(
                 future: getUserProfile(),
                 builder: (context, snapshot) {
@@ -134,8 +146,7 @@ class SideBarList extends StatelessWidget {
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16.0,
-                        fontFamily: 'sans-serif-light',
-                        color: Colors.grey,
+                        color: Colors.white,
                       ),);
                   }
                   else {return Text('');}

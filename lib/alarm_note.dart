@@ -75,7 +75,6 @@ class _AlarmNoteState extends State<AlarmNote> {
             fontWeight: FontWeight.bold,
             fontSize: 24.0,
             height: 1.2,
-            fontFamily: 'sans-serif-light',
             color: Colors.white,
           ),
         ),
