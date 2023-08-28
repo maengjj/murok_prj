@@ -22,7 +22,7 @@ const primary = Color(0xff06C09F);
 const secondary = Color(0xfff5f5f7);
 
 /// Secondary dark
-const secondaryDark = Color(0xffafafaf);
+const secondaryDark = Color(0xff06C09F);
 
 /// Base chat theme containing all required properties to make a theme.
 /// Extend this class if you want to create a custom theme.

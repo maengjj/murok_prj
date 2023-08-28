@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 // import 'package:untitled1/network.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'network.dart';
 
@@ -18,13 +19,30 @@ class _MyVegetablesState extends State<MyVegetables> {
   List data = [];
 
   Future<String> getData() async {
-    http.Response response = await http.get(
-      Uri.parse('http://15.164.103.233:3000/app/plants'),
-    );
+    // http.Response response = await http.get(
+    //   Uri.parse('http://15.164.103.233:3000/app/plants'),
+    // );
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? token = prefs.getString('token');
 
-    setState(() {
-      data = json.decode(response.body);
-    });
+    if (token != null) {
+      var url = Uri.parse('http://15.164.103.233:3000/app/plants');
+      Map<String, String> headers = {
+        'Content-type': 'application/json',
+        'x-access-token': '$token'
+      };
+
+
+      var response = await http.get(url, headers: headers);
+
+      print(response.body);
+
+
+      setState(() {
+        data = json.decode(response.body);
+      });
+    }
+
 
     print(data);
     return "success";

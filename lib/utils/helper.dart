@@ -76,8 +76,10 @@ Future<bool> registerUser(String uemail, String pass, String cpass, String name,
       Map<String, String> headers = {'Content-type': 'application/json'};
       var response = await http.post(
           url, headers: headers, body: user.toJson());
+      print(response);
       print(response.body);
       var data = SignResponse.fromJson(response.body);
+      print(data);
 
       // Get.showSnackbar(GetSnackBar(
       //   title: "회원가입 성공",

@@ -57,7 +57,7 @@ void initializeNotification() async {
       importance: Importance.max));
 
   await flutterLocalNotificationsPlugin.initialize(const InitializationSettings(
-    android: AndroidInitializationSettings("@mipmap/ic_launcher"),
+    android: AndroidInitializationSettings("@mipmap/murok_app_icon"),
   ));
 
   await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
@@ -130,6 +130,7 @@ class _MainPageState extends State<MainPage> {
               importance: Importance.max,
             ),
           ),
+          payload: 'smallIconName',
         );
 
         // 메시지 값을 alarm_note.dart 파일의 변수에 할당합니다.
@@ -151,7 +152,7 @@ class _MainPageState extends State<MainPage> {
 
 
     userProfileAvailble().then((value) async => {
-      Timer(const Duration(seconds: 3), () {
+      Timer(const Duration(seconds: 1), () {
         if (value) {
           Get.off(() => const IntroPage());
         } else {
@@ -160,6 +161,10 @@ class _MainPageState extends State<MainPage> {
         }
         // 타이머 설정
         _sendGetRequestWithTokenAfterDelay();
+
+        Timer.periodic(Duration(minutes: 1), (timer) {
+          _sendGetRequestWithToken();
+        });
 
 
       })

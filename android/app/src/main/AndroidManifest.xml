@@ -8,7 +8,7 @@
    <application
         android:label="무럭"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/murok_app_icon">
         <activity
             android:name=".MainActivity"
             android:exported="true"

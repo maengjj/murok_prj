@@ -106,18 +106,16 @@ final class Chat extends StatefulWidget {
 
 
 final class ChatState extends State<Chat> {
-  bool isButtonVisible = true;  // 버튼 숨김 여부를 관리하는 변수
-
-
-  void toggleButtonVisibility() {
-    setState(() {
-      isButtonVisible = !isButtonVisible;  // 버튼 숨김 여부 토글
-    });
-  }
+  // bool isButtonVisible = true;  // 버튼 숨김 여부를 관리하는 변수
+  //
+  //
+  // void toggleButtonVisibility() {
+  //   setState(() {
+  //     isButtonVisible = !isButtonVisible;  // 버튼 숨김 여부 토글
+  //   });
+  // }
 
   List<Message> messages = []; // 이 줄을 추가
-
-
 
 
   @override
@@ -139,41 +137,33 @@ final class ChatState extends State<Chat> {
             onMessagePressed: widget._onMessagePressed,
           ),
 
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              if (isButtonVisible)
-                Expanded(
-                  child: ElevatedButton(
-
-                    onPressed: ()  {
-
-                      // ChatBot.sendMessage("등록하기");
-
-
-
-
-                      toggleButtonVisibility();  // 버튼 숨김 여부 토글
-
-
-
-                    },
-                    child: Text('등록'),
-                  ),
-                ),
-              SizedBox(width: 16),
-              if (isButtonVisible)
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // 두 번째 버튼 눌렸을 때 실행할 동작
-                      toggleButtonVisibility();  // 버튼 숨김 여부 토글
-                    },
-                    child: Text('상담'),
-                  ),
-                ),
-            ],
-          ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //   children: [
+          //     if (isButtonVisible)
+          //       Expanded(
+          //         child: ElevatedButton(
+          //           onPressed: ()  {
+          //
+          //             // ChatBot.sendMessage("등록하기");
+          //             toggleButtonVisibility();  // 버튼 숨김 여부 토글
+          //           },
+          //           child: Text('등록'),
+          //         ),
+          //       ),
+          //     SizedBox(width: 16),
+          //     if (isButtonVisible)
+          //       Expanded(
+          //         child: ElevatedButton(
+          //           onPressed: () {
+          //             // 두 번째 버튼 눌렸을 때 실행할 동작
+          //             toggleButtonVisibility();  // 버튼 숨김 여부 토글
+          //           },
+          //           child: Text('상담'),
+          //         ),
+          //       ),
+          //   ],
+          // ),
           widget.chatMessageInputField,
         ],
       ).gestures(

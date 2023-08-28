@@ -11,6 +11,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 import 'my_vegetables.dart';
 import 'profile_page.dart';
@@ -29,17 +31,48 @@ class _MurokMainState extends State<MurokMain> {
   List data = [];
 
   Future<String> getData() async {
-    http.Response response = await http.get(
-      Uri.parse('http://15.164.103.233:3000/app/plants/freq'),
-    );
 
-    print(response);
 
-    setState(() {
-      data = json.decode(response.body);
-    });
 
-    print(response);
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? token = prefs.getString('token');
+
+    if (token != null) {
+      var url = Uri.parse('http://15.164.103.233:3000/app/plants/freq');
+      Map<String, String> headers = {
+        'Content-type': 'application/json',
+        'x-access-token': '$token'
+      };
+
+
+      var response = await http.get(url, headers: headers);
+
+      print(response.body);
+
+
+      setState(() {
+        data = json.decode(response.body);
+      });
+    }
+
+
+
+
+
+
+
+
+    // http.Response response = await http.get(
+    //   Uri.parse('http://15.164.103.233:3000/app/plants/freq'),
+    // );
+
+    // print(response);
+
+    // setState(() {
+    //   data = json.decode(response.body);
+    // });
+
+    // print(response);
 
     print(data);
     return "success";
@@ -157,6 +190,13 @@ class _MurokMainState extends State<MurokMain> {
                           fontWeight: FontWeight.w300,
                           height: 1.2,
                         ),),
+                      // Text('오늘의 할 일을 확인해봐요!',
+                      //   style: TextStyle(
+                      //     color: Colors.white,
+                      //     fontSize: 20,
+                      //     fontWeight: FontWeight.w300,
+                      //     height: 1.2,
+                      //   ),),
                     ],
                   ),
                   margin: EdgeInsets.only(top: 30),
@@ -302,7 +342,7 @@ class TodaySolid extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('분갈이 하기', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, height: 1.5, color: Colors.blueGrey.shade700)),
+                Text('수확 하기', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, height: 1.5, color: Colors.blueGrey.shade700)),
                 Row(
                   children: List.generate(data.length, (index) {
                     return Padding(

@@ -33,19 +33,13 @@ class CustomQuickReplyItem extends QuickReplyItem {
 }
 
 
-
-
-
-
 class _ChatBotState extends State<ChatBot> {
   final TextEditingController _messageController = TextEditingController();
   final List<MockMessage> _messages = [];
 
   bool isWaitingForResponse = false;
 
-
   MessageType currentMessageType = MessageType.none;
-
 
   late Chat chatView;
 
@@ -76,7 +70,6 @@ class _ChatBotState extends State<ChatBot> {
     _messages.add(initialResponse2);
 
 
-
     List<QuickReplyItem> quickReplies = [
       CustomQuickReplyItem(title: "등록"),
       CustomQuickReplyItem(title: "상담"),
@@ -92,10 +85,7 @@ class _ChatBotState extends State<ChatBot> {
     setState(() {
       // isWaitingForResponse = true;
       _messages.insert(0, initialResponse3);
-      print(initialResponse3);
     });
-
-
 
   }
 
@@ -110,11 +100,6 @@ class _ChatBotState extends State<ChatBot> {
     final headers = {'Content-type': 'application/json',
       'x-access-token': '$token'};
     final body = json.encode({'message': userMessage});
-
-
-
-
-
 
 
 
@@ -135,14 +120,14 @@ class _ChatBotState extends State<ChatBot> {
     // Add a timer to handle response timeout
     // Add a timer to handle response timeout
     if (isWaitingForResponse) {
-      responseTimer = Timer(Duration(seconds: 60), () {
+      responseTimer = Timer(Duration(seconds: 10), () {
         if (isWaitingForResponse) {
           final timeoutErrorMessage = MockMessage(
             date: DateTime.now(),
             user: MockChatUser.incomingUser,
             id: DateTime.now().toString(),
             isMe: false,
-            messageKind: MessageKind.text('무럭이가 다른 농부랑 대화 중인가봐요\n조금만 기다려주세요ㅠㅠ1'),
+            messageKind: MessageKind.text('무럭이가 다른 농부랑 대화 중인가봐요\n조금만 기다려주세요ㅠㅠ'),
           );
           setState(() {
             isWaitingForResponse = false;
@@ -157,7 +142,7 @@ class _ChatBotState extends State<ChatBot> {
     try {
       Uri url;
 
-      // 상담일때 1>3 으로 가고 등록일때 0>2 감. 최초에는 3번으로 감
+      // 상담일때 1>consult 으로 가고 등록일때 0>regist 감. 최초에는 3번으로 감
       if (userMessage.contains('등록')) {
         url = Uri.parse('http://15.164.103.233:3000/app/plants/GPT/0');
         currentMessageType = MessageType.registration;
@@ -170,7 +155,7 @@ class _ChatBotState extends State<ChatBot> {
         print('상담');
       } else {
         url = currentMessageType == MessageType.registration
-            ? Uri.parse('http://15.164.103.233:3000/app/plants/GPT/2')
+            ? Uri.parse('http://15.164.103.233:3000/app/plants/regist')
             : Uri.parse('http://15.164.103.233:3000/app/plants/consult');
         print(url);
       }
@@ -209,7 +194,7 @@ class _ChatBotState extends State<ChatBot> {
           user: MockChatUser.incomingUser,
           id: DateTime.now().toString(),
           isMe: false,
-          messageKind: MessageKind.text('무럭이가 다른 농부랑 대화 중인가봐요\n조금만 기다려주세요ㅠㅠ2'),
+          messageKind: MessageKind.text('무럭이가 다른 농부랑 대화 중인가봐요\n잠시후 다시 시도해주세요ㅠㅠ'),
         );
         setState(() {
           isWaitingForResponse = false;
@@ -224,7 +209,7 @@ class _ChatBotState extends State<ChatBot> {
         user: MockChatUser.incomingUser,
         id: DateTime.now().toString(),
         isMe: false,
-        messageKind: MessageKind.text('무럭이가 다른 농부랑 대화 중인가봐요\n조금만 기다려주세요ㅠㅠ3'),
+        messageKind: MessageKind.text('무럭이가 다른 농부랑 대화 중인가봐요\n잠시후 다시 시도해주세요ㅠㅠ'),
       );
       setState(() {
         isWaitingForResponse = false;
@@ -240,27 +225,55 @@ class _ChatBotState extends State<ChatBot> {
   }
 
 
+
+
+
+  // QuickReplyItem 선택 시 호출되는 함수
+  void handleQuickReplyItemPressed(QuickReplyItem item) {
+    final userMessage = item.title;  // QuickReply의 title을 userMessage로 사용
+    _sendMessageToServer(userMessage);  // 서버에 메시지 전송
+    final message = MockMessage(
+      date: DateTime.now(),
+      user: MockChatUser.outgoingUser,
+      id: DateTime.now().toString(),
+      isMe: true,
+      messageKind: MessageKind.text(userMessage),
+    );
+    chatView.scrollToBottom();
+    setState(() {
+      // _messages.insert(0, message);
+    });
+  }
+
+
+
+
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
     chatView = _chatWidget(context);
     return Scaffold(
       body: Column(
         children: [
-          Visibility(
-            visible: isWaitingForResponse,
-            child: Container(
-              alignment: Alignment.center,
-              padding: EdgeInsets.symmetric(vertical: 10),
-              child: SizedBox(
-                width: 20, // 원하는 너비 설정
-                height: 20, // 원하는 높이 설정
-                child: CircularProgressIndicator(
-                  color: Colors.black,
-                  strokeWidth: 3.0, // 원의 두께 설정
-                ),
-              ),
-            ),
-          ),
+          // Visibility(
+          //   visible: isWaitingForResponse,
+          //   child: Container(
+          //     alignment: Alignment.center,
+          //     padding: EdgeInsets.symmetric(vertical: 10),
+          //     child: SizedBox(
+          //       width: 20, // 원하는 너비 설정
+          //       height: 20, // 원하는 높이 설정
+          //       child: CircularProgressIndicator(
+          //         color: Colors.black,
+          //         strokeWidth: 3.0, // 원의 두께 설정
+          //       ),
+          //     ),
+          //   ),
+          // ),
 
           Expanded(
             child: Chat(
@@ -286,27 +299,28 @@ class _ChatBotState extends State<ChatBot> {
                 },
               ),
             )
-                .setOnQuickReplyItemPressed(
-                  (item) {
-                debugPrint(item.title);
-                final message = MockMessage(
-                  date: DateTime.now(),
-                  user: MockChatUser.outgoingUser,
-                  id: DateTime.now().toString(),
-                  isMe: true,
-                  messageKind: MessageKind.text(item.title),
-                );
-                // _messages.insert(0, message);
-                chatView.scrollToBottom();
-                setState(() {
-                  _messages.insert(0, message);
-                });
-              },
-            ).setOnMessagePressed(
-                  (message) {
-                debugPrint(message.messageKind.toString());
-              },
-            ),
+                .setOnQuickReplyItemPressed(handleQuickReplyItemPressed),
+            //     .setOnQuickReplyItemPressed(
+            //       (item) {
+            //     debugPrint(item.title);
+            //     final message = MockMessage(
+            //       date: DateTime.now(),
+            //       user: MockChatUser.outgoingUser,
+            //       id: DateTime.now().toString(),
+            //       isMe: true,
+            //       messageKind: MessageKind.text(item.title),
+            //     );
+            //     // _messages.insert(0, message);
+            //     chatView.scrollToBottom();
+            //     setState(() {
+            //       _messages.insert(0, message);
+            //     });
+            //   },
+            // ).setOnMessagePressed(
+            //       (message) {
+            //     debugPrint(message.messageKind.toString());
+            //   },
+            // ),
           ),
 
         ],

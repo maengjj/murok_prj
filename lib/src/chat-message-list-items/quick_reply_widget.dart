@@ -12,22 +12,37 @@ final class QuickReplyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Wrap(
-      spacing: 8,
+      spacing: -50,
+      // alignment: WrapAlignment.spaceEvenly,
       children: _buttons(context),
-    ).padding(all: 8);
+    ).padding(
+      left: 16,
+      right: 16,
+      top: 0,
+      bottom: 8,);
   }
 
   List<Widget> _buttons(BuildContext context) {
     return chatMessage.messageKind.quickReplies
         .map(
-          (qr) => OutlinedButton(
+          (qr) => Padding(
+            padding: EdgeInsets.only(left: 104),  // 왼쪽에 8의 padding 추가
+            child : OutlinedButton(
             style: context.theme.quickReplyButtonStyle,
             onPressed: () => ChatStateContainer.of(context)
                 .onQuickReplyItemPressed
                 ?.call(qr),
-            child: Text(qr.title),
+              child: Padding(
+                padding: EdgeInsets.only(
+                  left: 14,
+                  right: 14,
+                  bottom: 8,
+                  top: 8,),  // 텍스트 주변에 패딩 추가
+                child: Text(qr.title),
+              ),
           ),
-        )
+        ),
+    )
         .toList();
   }
 }

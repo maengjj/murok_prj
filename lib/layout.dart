@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:murok_prj/calendar.dart';
 
 import 'murok_main.dart';
 import 'chatbot.dart';
@@ -9,6 +10,7 @@ import 'alarm_note.dart';
 import 'login.dart';
 import 'my_vegetables.dart';
 import 'utils/helper.dart';
+import 'calendar.dart';
 
 
 class LayoutPage extends StatefulWidget {
@@ -189,6 +191,18 @@ class SideBarList extends StatelessWidget {
               // Navigator.push(context, MaterialPageRoute(builder: (context) => const MyVegetables()),);
               Get.to(() => MyVegetables());
               },
+            trailing: Icon(Icons.navigate_next),
+          ),
+          ListTile(
+            leading: Icon(Icons.list_alt),
+            iconColor: Color(0xff06C09F),
+            focusColor: Color(0xff06C09F),
+            title: Text('캘린더',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),),
+            onTap: () {
+              // Navigator.push(context, MaterialPageRoute(builder: (context) => const MyVegetables()),);
+              Get.to(() => CalendarScreen());
+            },
             trailing: Icon(Icons.navigate_next),
           ),
           ListTile(

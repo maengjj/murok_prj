@@ -24,7 +24,7 @@ class AlarmNote extends StatefulWidget {
 
   static void printMessage() {
     if (messageBody != null) {
-      _AlarmNoteState()._loadNotes(); // 메시지 수신시 화면 갱신
+      // _AlarmNoteState()._loadNotes(); // 메시지 수신시 화면 갱신
       print("Received message: $messageBody");
       // _AlarmNoteState()._loadNotes(); // 메시지 수신시 화면 갱신
     }
@@ -83,19 +83,19 @@ class _AlarmNoteState extends State<AlarmNote> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: <Widget>[
-            // Row(
-            //   children: <Widget>[
-            //     Expanded(
-            //       child: TextField(
-            //         controller: _noteController,
-            //       ),
-            //     ),
-            //     ElevatedButton(
-            //       child: Text('추가'),
-            //       onPressed: () => _addNote(Note(_noteController.text)),
-            //     ),
-            //   ],
-            // ),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: TextField(
+                    controller: _noteController,
+                  ),
+                ),
+                ElevatedButton(
+                  child: Text('추가'),
+                  onPressed: () => _addNote(Note(_noteController.text, dateTime: DateTime.now())),
+                ),
+              ],
+            ),
             Expanded(
               child: ListView(
                 children: _itemList.map((note) => _buildItem(note)).toList(),
@@ -161,21 +161,42 @@ class _AlarmNoteState extends State<AlarmNote> {
     await prefs.setStringList('notes', notesJson);
   }
 
+  // Future<void> _loadNotes() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   final notesJson = prefs.getStringList('notes') ?? [];
+  //   setState(() {
+  //     _itemList.clear();
+  //     _itemList.addAll(notesJson.map((json) => noteFromJson(json)));
+  //
+  //     if (AlarmNote.messageBody != null && !_itemList.any((note) => note.title == AlarmNote.messageBody)) {
+  //       _itemList.add(Note(AlarmNote.messageBody!, dateTime: DateTime.now())); // 현재 시간 추가
+  //       // _itemList.add(Note(AlarmNote.messageBody!));
+  //       _saveNotes(); // 변경된 내용 저장
+  //     }
+  //
+  //   });
+  // }
+
+
   Future<void> _loadNotes() async {
     final prefs = await SharedPreferences.getInstance();
     final notesJson = prefs.getStringList('notes') ?? [];
+
+    List<Note> newNotes = notesJson.map((json) => noteFromJson(json)).toList();
+
+    if (AlarmNote.messageBody != null && !newNotes.any((note) => note.title == AlarmNote.messageBody)) {
+      newNotes.add(Note(AlarmNote.messageBody!, dateTime: DateTime.now())); // 현재 시간 추가
+      _saveNotes(); // 변경된 내용 저장
+    }
+
     setState(() {
       _itemList.clear();
-      _itemList.addAll(notesJson.map((json) => noteFromJson(json)));
-
-      if (AlarmNote.messageBody != null && !_itemList.any((note) => note.title == AlarmNote.messageBody)) {
-        _itemList.add(Note(AlarmNote.messageBody!, dateTime: DateTime.now())); // 현재 시간 추가
-        // _itemList.add(Note(AlarmNote.messageBody!));
-        _saveNotes(); // 변경된 내용 저장
-      }
-
+      _itemList.addAll(newNotes);
     });
   }
+
+
+
 
   String noteToJson(Note note) {
     return '{"title": "${note.title}", "isDone": ${note.isDone}}';
