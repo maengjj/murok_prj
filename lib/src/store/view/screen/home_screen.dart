@@ -31,15 +31,23 @@ class _HomeScreenState extends State<HomeScreen> {
   int newIndex = 0;
 
   @override
+  void initState() {
+    super.initState();
+    newIndex = 0; // 초기값을 설정해줍니다.
+  }
+
+  @override
   Widget build(BuildContext context) {
     return PageWrapper(
       child: Scaffold(
         appBar: AppBar(
             leading: IconButton(
               onPressed: () {
+                Get.back();
+                Get.back();
                 // Get.to(() => LayoutPage());
                 // Navigator.popUntil(context, ModalRoute.withName('/'));
-                Navigator.pop(context); // 현재 페이지를 닫고 이전 페이지로 돌아가기
+                // Navigator.pop(context); // 현재 페이지를 닫고 이전 페이지로 돌아가기
                 // Navigator.of(context).popUntil((route) => route.isFirst);
               },
               icon: Icon(

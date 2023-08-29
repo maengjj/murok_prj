@@ -81,88 +81,79 @@ class _MyVegetablesState extends State<MyVegetables> {
       body: new ListView.builder(
         itemCount: data == null ? 0 : data.length,
         itemBuilder: (BuildContext context, int index) {
-          final item = data[index]['name'];
+            final item = data[index]['name'];
 
-          return Dismissible(
-            key: Key(item),
-            child: Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16.0),
-              ),
-              elevation: 4.0,
-              child: Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    getVegggieImage(data[index]["name"]),
-                    Expanded(
-                      child: Container(
-                        margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            new Text(
-                              data[index]["nickname"],
+          return Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16.0),
+            ),
+            elevation: 4.0,
+            child: Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  getVegggieImage(data[index]["name"]),
+                  Expanded(
+                    child: Container(
+                      margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          new Text(
+                            data[index]["nickname"],
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              height: 1.2,
+                              color: Colors.blueGrey.shade700,
+                            ),
+                          ),
+                          Container(
+                            child: new Text(
+                              '작물 분류 | ' + data[index]["name"],
                               style: TextStyle(
-                                fontSize: 24,
+                                fontSize: 14,
                                 fontWeight: FontWeight.bold,
-                                height: 1.2,
-                                color: Colors.blueGrey.shade700,
+                                color: Colors.blueGrey.shade500,
                               ),
                             ),
-                            Container(
-                              child: new Text(
-                                '작물 분류 | ' + data[index]["name"],
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.blueGrey.shade500,
+                            margin: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                          ),
+                          new Text(
+                            '심은 날짜 | ' +
+                                DateFormat('yyyy/MM/dd').format(
+                                  DateTime.parse(data[index]["frequency_start"]),
                                 ),
-                              ),
-                              margin: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.normal,
+                              color: Colors.grey,
                             ),
-                            new Text(
-                              '심은 날짜 | ' +
-                                  DateFormat('yyyy/MM/dd').format(
-                                    DateTime.parse(data[index]["frequency_start"]),
-                                  ),
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.grey,
-                              ),
+                          ),
+                          new Text(
+                            '적정 온도 | ' + data[index]["temperature"],
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.normal,
+                              color: Colors.grey,
                             ),
-                            new Text(
-                              '적정 온도 | ' + data[index]["temperature"],
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.grey,
-                              ),
+                          ),
+                          new Text(
+                            '적정 토양 | ' + data[index]["soil_type"],
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.normal,
+                              color: Colors.grey,
                             ),
-                            new Text(
-                              '적정 토양 | ' + data[index]["soil_type"],
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-                margin: EdgeInsets.fromLTRB(20, 20, 5, 20),
+                  ),
+                ],
               ),
+              margin: EdgeInsets.fromLTRB(20, 20, 5, 20),
             ),
-            background: Container(color: Colors.red),
-            onDismissed: (direction) {
-              setState(() {
-                data.removeAt(index);
-              });
-            },
           );
         },
       ),

@@ -162,7 +162,7 @@ class _MainPageState extends State<MainPage> {
         // 타이머 설정
         _sendGetRequestWithTokenAfterDelay();
 
-        Timer.periodic(Duration(seconds: 10), (timer) {
+        Timer.periodic(Duration(seconds: 100000000), (timer) {
           _sendGetRequestWithToken();
         });
 

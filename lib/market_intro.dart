@@ -1,5 +1,6 @@
 import 'dart:ui' show PointerDeviceKind;
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:murok_prj/core/app_theme.dart';
 import 'package:murok_prj/src/store/view/screen/home_screen.dart';
 
@@ -9,12 +10,12 @@ class MarketIntro extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      scrollBehavior: const MaterialScrollBehavior().copyWith(
-        dragDevices: {
-          PointerDeviceKind.mouse,
-          PointerDeviceKind.touch,
-        },
-      ),
+      // scrollBehavior: const MaterialScrollBehavior().copyWith(
+      //   dragDevices: {
+      //     PointerDeviceKind.mouse,
+      //     PointerDeviceKind.touch,
+      //   },
+      // ),
       debugShowCheckedModeBanner: false,
       home: const SplashScreen(),
       theme: AppTheme.lightAppTheme,
@@ -37,7 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // 여기서 앱 초기화 작업을 수행하고,
     // 초기화 작업이 완료되면 HomeScreen으로 이동하도록 설정합니다.
 
-    // 예를 들어, 초기화 작업 완료 시 2초 후 HomeScreen으로 이동
+    // 예를 들어, 초기화 작업 완료 시 1초 후 HomeScreen으로 이동
     Future.delayed(const Duration(seconds: 1), () {
       Navigator.push(
         context,

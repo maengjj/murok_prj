@@ -24,6 +24,8 @@ class MapScreenState extends State<ProfilePage>
   bool _status = true;
   // File? _imageFile;
 
+  String phoneNumber = ''; // 전화번호를 저장할 변수
+
 
 
   final FocusNode myFocusNode = FocusNode();
@@ -318,6 +320,7 @@ class MapScreenState extends State<ProfilePage>
                                             controller: TextEditingController(text: snapshot.data!.phoneNum),
                                             onChanged: (text) async {
                                               if (_status = true) { // Use '==' for comparison, not '='
+                                                phoneNumber = text;
                                                 print(text);
 
                                               }
@@ -350,6 +353,42 @@ class MapScreenState extends State<ProfilePage>
         ));
   }
 
+
+  Future<void> updatePhoneNumber(String phoneNumber) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? token = prefs.getString('token');
+
+    final url = Uri.parse('http://15.164.103.233:3000/app/users/update'); // 실제 API 엔드포인트로 변경
+
+    final response = await http.post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': '$token', // 요청 헤더 설정
+      },
+      body: jsonEncode({'email':'taba@gmail.com', 'phoneNum': phoneNumber, 'status': 0}), // 요청 바디에 전화번호 전달
+    );
+
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      // 요청이 성공적으로 완료된 경우
+      print('전화번호 업데이트 성공');
+    } else {
+      // 요청이 실패한 경우
+      print('전화번호 업데이트 실패');
+    }
+  }
+
+
+
+
+
+
+
+
+
+
   @override
   void dispose() {
     // Clean up the controller when the Widget is disposed
@@ -381,6 +420,7 @@ class MapScreenState extends State<ProfilePage>
                         _status = true;
                         FocusScope.of(context).requestFocus(new FocusNode());
                       });
+                      updatePhoneNumber(phoneNumber);
                     },
                     // shape: new RoundedRectangleBorder(
                     //     borderRadius: new BorderRadius.circular(20.0)),

@@ -173,15 +173,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
   //   ],
   // };
 
-  //
-  // void _handleNewDate(DateTime date) {
-  //   setState(() {
-  //     _date = DateTime.now(); // 오늘의 날짜로 설정
-  //   });
-  // }
-
-
-
 
   @override
   void initState() {
@@ -197,6 +188,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
       // _events를 변경하고 페이지를 다시 빌드
     });
   }
+
+
 
   @override
   Widget build(BuildContext context) {

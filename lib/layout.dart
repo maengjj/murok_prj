@@ -156,7 +156,7 @@ class SideBarList extends StatelessWidget {
                   else {return Text('');}
                 }
             ),
-            onDetailsPressed: () {},
+            // onDetailsPressed: () {},
             decoration: BoxDecoration(
               color: Color(0xff06C09F),
               borderRadius: BorderRadius.only(

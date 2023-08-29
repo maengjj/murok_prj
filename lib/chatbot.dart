@@ -143,22 +143,56 @@ class _ChatBotState extends State<ChatBot> {
       Uri url;
 
       // 상담일때 1>consult 으로 가고 등록일때 0>regist 감. 최초에는 3번으로 감
+      // if (userMessage.contains('등록')) {
+      //   url = Uri.parse('http://15.164.103.233:3000/app/plants/GPT/0');
+      //   currentMessageType = MessageType.registration;
+      //   print(url);
+      //   print('등록');
+      // } else if (userMessage.contains('상담')) {
+      //   url = Uri.parse('http://15.164.103.233:3000/app/plants/GPT/1');
+      //   currentMessageType = MessageType.consultation;
+      //   print(url);
+      //   print('상담');
+      // } else {
+      //   url = currentMessageType == MessageType.registration
+      //       ? Uri.parse('http://15.164.103.233:3000/app/plants/regist')
+      //       : Uri.parse('http://15.164.103.233:3000/app/plants/consult');
+      //   print(url);
+      // }
+
+
       if (userMessage.contains('등록')) {
-        url = Uri.parse('http://15.164.103.233:3000/app/plants/GPT/0');
-        currentMessageType = MessageType.registration;
-        print(url);
-        print('등록');
+        if (currentMessageType != MessageType.registration) {
+          url = Uri.parse('http://15.164.103.233:3000/app/plants/GPT/0');
+          print(url);
+          print('등록');
+          currentMessageType = MessageType.registration;
+        } else {
+          url = Uri.parse('http://15.164.103.233:3000/app/plants/regist');
+          print(url);
+        }
       } else if (userMessage.contains('상담')) {
-        url = Uri.parse('http://15.164.103.233:3000/app/plants/GPT/1');
-        currentMessageType = MessageType.consultation;
-        print(url);
-        print('상담');
+        if (currentMessageType != MessageType.consultation) {
+          url = Uri.parse('http://15.164.103.233:3000/app/plants/GPT/1');
+          print(url);
+          print('상담');
+          currentMessageType = MessageType.consultation;
+        } else {
+          url = Uri.parse('http://15.164.103.233:3000/app/plants/consult');
+          print(url);
+        }
       } else {
         url = currentMessageType == MessageType.registration
             ? Uri.parse('http://15.164.103.233:3000/app/plants/regist')
             : Uri.parse('http://15.164.103.233:3000/app/plants/consult');
         print(url);
       }
+
+
+
+
+
+
 
 
       final response = await http.post(url, headers: headers, body: body);
