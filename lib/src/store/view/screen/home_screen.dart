@@ -7,6 +7,9 @@ import 'package:murok_prj/src/store/view/screen/cart_screen.dart';
 import 'package:murok_prj/src/store/view/screen/profile_screen.dart';
 import 'package:murok_prj/src/store/view/screen/favorite_screen.dart';
 import 'package:murok_prj/src/store/view/screen/product_list_screen.dart';
+import 'package:murok_prj/core/app_theme.dart';
+import 'dart:ui' show PointerDeviceKind;
+
 
 
 import 'package:get/get.dart';
@@ -38,68 +41,81 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return PageWrapper(
-      child: Scaffold(
-        appBar: AppBar(
-            leading: IconButton(
-              onPressed: () {
-                Get.back();
-                Get.back();
-                // Get.to(() => LayoutPage());
-                // Navigator.popUntil(context, ModalRoute.withName('/'));
-                // Navigator.pop(context); // 현재 페이지를 닫고 이전 페이지로 돌아가기
-                // Navigator.of(context).popUntil((route) => route.isFirst);
+    return Theme(
+      data: AppTheme.lightAppTheme,
+      child: PageWrapper(
+        child: ScrollConfiguration(
+          behavior: const MaterialScrollBehavior().copyWith(
+            dragDevices: {
+              PointerDeviceKind.mouse,
+              PointerDeviceKind.touch,
+            },
+          ),
+          child: Scaffold(
+            appBar: AppBar(
+              leading: IconButton(
+                onPressed: () {
+                  Get.back();
+                },
+                icon: Icon(
+                  Icons.arrow_back_ios,
+                  size: 20,
+                  color: Colors.white,
+                ),
+              ),
+              title: Text(
+                "무럭마켓",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  height: 1.2,
+                ),
+              ),
+              backgroundColor: Color(0xff06C09F),
+              toolbarHeight: 80,
+            ),
+            body: PageTransitionSwitcher(
+              duration: const Duration(seconds: 1),
+              transitionBuilder: (
+                  Widget child,
+                  Animation<double> animation,
+                  Animation<double> secondaryAnimation,
+                  ) {
+                return FadeThroughTransition(
+                  animation: animation,
+                  secondaryAnimation: secondaryAnimation,
+                  child: child,
+                );
               },
-              icon: Icon(
-                Icons.arrow_back_ios,
-                size: 20,
-                color: Colors.white,
+              child: HomeScreen.screens[newIndex],
+            ),
+            bottomNavigationBar: Container(
+              height: 60, // 원하는 높이로 설정하세요
+              child: BottomNavyBar(
+                itemCornerRadius: 10,
+                selectedIndex: newIndex,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                items: AppData.bottomNavyBarItems
+                    .map(
+                      (item) => BottomNavyBarItem(
+                    icon: item.icon,
+                    title: Text(item.title),
+                    activeColor: item.activeColor,
+                    inactiveColor: item.inActiveColor,
+                  ),
+                )
+                    .toList(),
+                onItemSelected: (currentIndex) {
+                  newIndex = currentIndex;
+                  setState(() {});
+                },
               ),
             ),
-            title: Text("무럭마켓", style: TextStyle(color: Colors.white,
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              height: 1.2,)),
-            // actions: [
-            //   TextButton(onPressed: () {},
-            //       child: Container(child: Text('추가하기'),
-            //         padding: EdgeInsets.fromLTRB(0, 0, 10, 0),))
-            // ],
-            backgroundColor: Color(0xff06C09F), toolbarHeight: 80),
-        bottomNavigationBar: BottomNavyBar(
-          itemCornerRadius: 10,
-          selectedIndex: newIndex,
-          items: AppData.bottomNavyBarItems
-              .map(
-                (item) => BottomNavyBarItem(
-                  icon: item.icon,
-                  title: Text(item.title),
-                  activeColor: item.activeColor,
-                  inactiveColor: item.inActiveColor,
-                ),
-              )
-              .toList(),
-          onItemSelected: (currentIndex) {
-            newIndex = currentIndex;
-            setState(() {});
-          },
-        ),
-        body: PageTransitionSwitcher(
-          duration: const Duration(seconds: 1),
-          transitionBuilder: (
-            Widget child,
-            Animation<double> animation,
-            Animation<double> secondaryAnimation,
-          ) {
-            return FadeThroughTransition(
-              animation: animation,
-              secondaryAnimation: secondaryAnimation,
-              child: child,
-            );
-          },
-          child: HomeScreen.screens[newIndex],
+          ),
         ),
       ),
     );
   }
+
 }

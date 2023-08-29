@@ -3,44 +3,42 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:murok_prj/core/app_theme.dart';
 import 'package:murok_prj/src/store/view/screen/home_screen.dart';
+import 'dart:async'; // 이 부분을 추가해주세요
+//
+// class MarketIntro extends StatelessWidget {
+//   const MarketIntro({Key? key}) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       scrollBehavior: const MaterialScrollBehavior().copyWith(
+//         dragDevices: {
+//           PointerDeviceKind.mouse,
+//           PointerDeviceKind.touch,
+//         },
+//       ),
+//       debugShowCheckedModeBanner: false,
+//       home: const HomeScreen(),
+//       theme: AppTheme.lightAppTheme,
+//     );
+//   }
+// }
 
-class MarketIntro extends StatelessWidget {
+class MarketIntro extends StatefulWidget {
   const MarketIntro({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      // scrollBehavior: const MaterialScrollBehavior().copyWith(
-      //   dragDevices: {
-      //     PointerDeviceKind.mouse,
-      //     PointerDeviceKind.touch,
-      //   },
-      // ),
-      debugShowCheckedModeBanner: false,
-      home: const SplashScreen(),
-      theme: AppTheme.lightAppTheme,
-    );
-  }
+  _MarketIntroState createState() => _MarketIntroState();
 }
 
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
-
-  @override
-  _SplashScreenState createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> {
+class _MarketIntroState extends State<MarketIntro> {
   @override
   void initState() {
     super.initState();
 
-    // 여기서 앱 초기화 작업을 수행하고,
-    // 초기화 작업이 완료되면 HomeScreen으로 이동하도록 설정합니다.
-
-    // 예를 들어, 초기화 작업 완료 시 1초 후 HomeScreen으로 이동
-    Future.delayed(const Duration(seconds: 1), () {
-      Navigator.push(
+    // 1초 후에 HomeScreen으로 이동하는 타이머 설정
+    Timer(const Duration(seconds: 1), () {
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const HomeScreen()),
       );
@@ -58,13 +56,12 @@ class _SplashScreenState extends State<SplashScreen> {
             Container(
               child: Image.asset('images/wlogo.png', width: 150,),
               padding: EdgeInsets.only(bottom: 10),
-            ), // 추가 이미지 설정
+            ),
             const Text(
               "무럭마켓",
               style: TextStyle(fontSize: 24, color: Colors.white),
             ),
             const SizedBox(height: 60),
-            // const CircularProgressIndicator(color: Colors.white),
           ],
         ),
       ),

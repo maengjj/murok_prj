@@ -7,6 +7,8 @@ import 'package:murok_prj/src/store/view/widget/page_wrapper.dart';
 import 'package:murok_prj/src/store/view/widget/carousel_slider.dart';
 import 'package:murok_prj/src/store/controller/product_controller.dart';
 import 'package:intl/intl.dart';  // intl 패키지를 임포트
+import 'package:murok_prj/core/app_theme.dart';
+
 
 
 final ProductController controller = Get.put(ProductController());
@@ -110,7 +112,9 @@ class ProductDetailScreen extends StatelessWidget {
 
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    return SafeArea(
+    return Theme(
+        data: AppTheme.lightAppTheme, // 테마를 설정합니다.
+        child:SafeArea(
       child: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: _appBar(context),
@@ -193,6 +197,7 @@ class ProductDetailScreen extends StatelessWidget {
             ),
           ),
         ),
+      ),
       ),
     );
   }
