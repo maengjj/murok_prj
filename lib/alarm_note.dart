@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-
-import 'layout.dart';
 
 
 class Note {
   String title;
   bool isDone;
-  DateTime dateTime; // 추가: 날짜 및 시간 정보 저장
 
-  Note(this.title, {this.isDone = false, required this.dateTime});
+  Note(this.title, {this.isDone = false});
 }
 
 class AlarmNote extends StatefulWidget {
@@ -24,7 +22,7 @@ class AlarmNote extends StatefulWidget {
 
   static void printMessage() {
     if (messageBody != null) {
-      // _AlarmNoteState()._loadNotes(); // 메시지 수신시 화면 갱신
+      _AlarmNoteState()._loadNotes(); // 메시지 수신시 화면 갱신
       print("Received message: $messageBody");
       // _AlarmNoteState()._loadNotes(); // 메시지 수신시 화면 갱신
     }
@@ -55,6 +53,7 @@ class _AlarmNoteState extends State<AlarmNote> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+
         leading: IconButton(
           onPressed: () {
             // Get.offAll(() => LayoutPage());
@@ -66,6 +65,12 @@ class _AlarmNoteState extends State<AlarmNote> {
             color: Colors.white,
           ),
         ),
+
+
+
+
+
+
         toolbarHeight: 80,
         backgroundColor: Color(0xFF06C09F),
         centerTitle: true,
@@ -92,7 +97,7 @@ class _AlarmNoteState extends State<AlarmNote> {
                 ),
                 ElevatedButton(
                   child: Text('추가'),
-                  onPressed: () => _addNote(Note(_noteController.text, dateTime: DateTime.now())),
+                  onPressed: () => _addNote(Note(_noteController.text)),
                 ),
               ],
             ),
@@ -111,19 +116,15 @@ class _AlarmNoteState extends State<AlarmNote> {
     return ListTile(
       title: Text(
         note.title,
-        style: TextStyle(
-          fontSize: 20.0, // 원하는 크기로 수정
-          decoration: note.isDone
-              ? TextDecoration.lineThrough
-              : null,
-          fontStyle: note.isDone ? FontStyle.italic : FontStyle.normal,
-        ),
-      ),
-      subtitle: Text(
-        DateFormat('yyyy-MM-dd HH:mm').format(note.dateTime), // 날짜 및 시간 표시
+        style: note.isDone
+            ? TextStyle(
+          decoration: TextDecoration.lineThrough,
+          fontStyle: FontStyle.italic,
+        )
+            : null,
       ),
       trailing: IconButton(
-        icon: Icon(Icons.delete_forever, size: 30,),
+        icon: Icon(Icons.delete_forever),
         onPressed: () => _deleteNote(note),
       ),
       onTap: () => _toggleNote(note),
@@ -133,7 +134,6 @@ class _AlarmNoteState extends State<AlarmNote> {
 
   void _addNote(Note note) {
     setState(() {
-      note.dateTime = DateTime.now(); // 현재 날짜 및 시간 추가
       _itemList.add(note);
       _noteController.text = "";
       _saveNotes(); // 노트를 추가한 후 저장합니다.
@@ -161,42 +161,20 @@ class _AlarmNoteState extends State<AlarmNote> {
     await prefs.setStringList('notes', notesJson);
   }
 
-  // Future<void> _loadNotes() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   final notesJson = prefs.getStringList('notes') ?? [];
-  //   setState(() {
-  //     _itemList.clear();
-  //     _itemList.addAll(notesJson.map((json) => noteFromJson(json)));
-  //
-  //     if (AlarmNote.messageBody != null && !_itemList.any((note) => note.title == AlarmNote.messageBody)) {
-  //       _itemList.add(Note(AlarmNote.messageBody!, dateTime: DateTime.now())); // 현재 시간 추가
-  //       // _itemList.add(Note(AlarmNote.messageBody!));
-  //       _saveNotes(); // 변경된 내용 저장
-  //     }
-  //
-  //   });
-  // }
-
-
   Future<void> _loadNotes() async {
     final prefs = await SharedPreferences.getInstance();
     final notesJson = prefs.getStringList('notes') ?? [];
-
-    List<Note> newNotes = notesJson.map((json) => noteFromJson(json)).toList();
-
-    if (AlarmNote.messageBody != null && !newNotes.any((note) => note.title == AlarmNote.messageBody)) {
-      newNotes.add(Note(AlarmNote.messageBody!, dateTime: DateTime.now())); // 현재 시간 추가
-      _saveNotes(); // 변경된 내용 저장
-    }
-
     setState(() {
       _itemList.clear();
-      _itemList.addAll(newNotes);
+      _itemList.addAll(notesJson.map((json) => noteFromJson(json)));
+
+      if (AlarmNote.messageBody != null && !_itemList.any((note) => note.title == AlarmNote.messageBody)) {
+        _itemList.add(Note(AlarmNote.messageBody!));
+        _saveNotes(); // 변경된 내용 저장
+      }
+
     });
   }
-
-
-
 
   String noteToJson(Note note) {
     return '{"title": "${note.title}", "isDone": ${note.isDone}}';
@@ -204,9 +182,7 @@ class _AlarmNoteState extends State<AlarmNote> {
 
   Note noteFromJson(String json) {
     Map<String, dynamic> data = Map<String, dynamic>.from(jsonDecode(json));
-    return Note(data['title'], isDone: data['isDone'],
-    dateTime: DateTime.parse(data['dateTime']),
-    );
+    return Note(data['title'], isDone: data['isDone']);
   }
 
 }

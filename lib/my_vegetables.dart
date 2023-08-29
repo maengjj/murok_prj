@@ -72,11 +72,12 @@ class _MyVegetablesState extends State<MyVegetables> {
             fontSize: 24,
             fontWeight: FontWeight.bold,
             height: 1.2,)),
-          actions: [
-            TextButton(onPressed: () {},
-                child: Container(child: Text('추가하기'),
-                  padding: EdgeInsets.fromLTRB(0, 0, 10, 0),))
-          ], backgroundColor: Color(0xff06C09F), toolbarHeight: 80),
+          // actions: [
+          //   TextButton(onPressed: () {},
+          //       child: Container(child: Text('추가하기'),
+          //         padding: EdgeInsets.fromLTRB(0, 0, 10, 0),))
+          // ],
+          backgroundColor: Color(0xff06C09F), toolbarHeight: 80),
       body: new ListView.builder(
         itemCount: data == null ? 0 : data.length,
         itemBuilder: (BuildContext context, int index) {

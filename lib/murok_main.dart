@@ -55,6 +55,8 @@ class _MurokMainState extends State<MurokMain> {
       });
     }
 
+    print(data);
+
 
 
 
@@ -310,12 +312,20 @@ class TodayWater extends StatelessWidget {
               children: [
                 Text('물 주기', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, height: 1.5, color: Colors.blueGrey.shade700)),
                 Row(
-                  children: List.generate(data.length, (index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(right: 5),
-                      child: Text(data[index]['name'], style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal, color: Colors.grey)),
-                    );
-                  }),
+                  children: [
+                    for (var item in data)
+                      if (item['name'] != null)
+                        Padding(
+                          padding: const EdgeInsets.only(right: 5),
+                          child: Text(item['name'], style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal, color: Colors.grey)),
+                        ),
+                  ]
+                  // List.generate(data.length, (index) {
+                  //   return Padding(
+                  //     padding: const EdgeInsets.only(right: 5),
+                  //     child: Text(data[index]['name'], style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal, color: Colors.grey)),
+                  //   );
+                  // }),
                 )
               ],
             ),
@@ -344,12 +354,19 @@ class TodaySolid extends StatelessWidget {
               children: [
                 Text('수확 하기', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, height: 1.5, color: Colors.blueGrey.shade700)),
                 Row(
-                  children: List.generate(data.length, (index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(right: 5),
-                      child: Text(data[index]['name'], style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal, color: Colors.grey)),
-                    );
-                  }),
+                  children: [for (var item in data)
+                    if (item['harvest'] != null)
+                      Padding(
+                        padding: const EdgeInsets.only(right: 5),
+                        child: Text(item['harvest'], style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal, color: Colors.grey)),
+                      ),]
+                  // List.generate(data.length, (index) {
+                  //   var harvestvalue = data[index]['harvest'];
+                  //   return Padding(
+                  //     padding: const EdgeInsets.only(right: 5),
+                  //     child: Text(harvestvalue ?? '', style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal, color: Colors.grey)),
+                  //   );
+                  // }),
                 )
               ],
             ),
@@ -379,12 +396,20 @@ class TodayNutrition extends StatelessWidget {
               children: [
                 Text('영양제 주기', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, height: 1.5, color: Colors.blueGrey.shade700)),
                 Row(
-                  children: List.generate(data.length, (index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(right: 5),
-                      child: Text(data[index]['name'], style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal, color: Colors.grey)),
-                    );
-                  }),
+                  children:
+                  [for (var item in data)
+                    if (item['soild'] != null)
+                      Padding(
+                        padding: const EdgeInsets.only(right: 5),
+                        child: Text(item['soild'], style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal, color: Colors.grey)),
+                      ),]
+                  // List.generate(data.length, (index) {
+                  //   var solidValue = data[index]['soild'];
+                  //   return Padding(
+                  //     padding: const EdgeInsets.only(right: 5),
+                  //     child: Text(solidValue ?? 'N/A', style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal, color: Colors.grey)),
+                  //   );
+                  // }),
                 )
               ],
             ),

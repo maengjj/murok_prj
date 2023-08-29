@@ -11,6 +11,7 @@ import 'chatbot.dart';
 import 'profile_page.dart';
 import 'layout.dart';
 import 'dashboard.dart';
+import 'market_intro.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -35,11 +36,6 @@ class LoginPage extends StatelessWidget {
             color: Colors.white,
           ),
         ),
-        // title: const Text(
-        //   "로그인",
-        //   style: TextStyle(
-        //       fontSize: 28, fontWeight: FontWeight.bold, color: Colors.white),
-        // ),
         centerTitle: true,
         systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
@@ -58,13 +54,7 @@ class LoginPage extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          // SizedBox(
-                          //   height: MediaQuery.of(context).size.height / 3,
-                          //   child: const Image(
-                          //     colorBlendMode: BlendMode.overlay,
-                          //     image: AssetImage('assets/background.png'),
-                          //   ),
-                          // ),
+
                           const SizedBox(
                             height: 15,
                           ),
@@ -94,32 +84,6 @@ class LoginPage extends StatelessWidget {
                           ],
                         ),
                       ),
-                      // Padding(
-                      //   padding: const EdgeInsets.symmetric(horizontal: 20),
-                      //   child: Row(
-                      //     mainAxisAlignment: MainAxisAlignment.start,
-                      //     // crossAxisAlignment: CrossAxisAlignment.start,
-                      //     children: [
-                      //
-                      //       Transform.scale(
-                      //         scale: 1.0,
-                      //         child: Checkbox(
-                      //           activeColor: Colors.white,
-                      //           checkColor: Colors.green,
-                      //           value: false,
-                      //           onChanged: (value) {
-                      //
-                      //             // setState(() {
-                      //             //   _checkBoxValue3 = value;
-                      //             // }
-                      //             // );
-                      //           },
-                      //         ),
-                      //       ),
-                      //       Text('초록색 '),
-                      //     ],
-                      //   )
-                      // ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 40),
                         child: Container(
@@ -131,7 +95,7 @@ class LoginPage extends StatelessWidget {
                             minWidth: double.infinity,
                             height: 60,
                             onPressed: () {
-                              // Get.to(() => LayoutPage());
+                              // Get.to(() => MarketIntro());
                                loginUser(emailController, passController);  //로그인 구현!!!!
                             },
                             color: const Color(0xFFFFFFFF),

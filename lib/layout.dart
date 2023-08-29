@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:murok_prj/calendar.dart';
+import 'package:murok_prj/src/store/view/screen/home_screen.dart';
 
 import 'murok_main.dart';
 import 'chatbot.dart';
@@ -9,6 +10,7 @@ import 'package:get/get.dart';
 import 'alarm_note.dart';
 import 'login.dart';
 import 'my_vegetables.dart';
+import 'market_intro.dart';
 import 'utils/helper.dart';
 import 'calendar.dart';
 
@@ -163,24 +165,16 @@ class SideBarList extends StatelessWidget {
               ),
             ),
           ),
-          ListTile(
-            leading: Icon(Icons.storefront),
-            iconColor: Color(0xff06C09F),
-            focusColor: Color(0xff06C09F),
-            title: Text('무럭마켓',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),),
-            onTap: () {},
-            trailing: Icon(Icons.navigate_next),
-          ),
-          ListTile(
-            leading: Icon(Icons.question_mark_rounded),
-            iconColor: Color(0xff06C09F),
-            focusColor: Color(0xff06C09F),
-            title: Text('질문하기',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),),
-            onTap: () {},
-            trailing: Icon(Icons.navigate_next),
-          ),
+
+          // ListTile(
+          //   leading: Icon(Icons.question_mark_rounded),
+          //   iconColor: Color(0xff06C09F),
+          //   focusColor: Color(0xff06C09F),
+          //   title: Text('질문하기',
+          //     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),),
+          //   onTap: () {},
+          //   trailing: Icon(Icons.navigate_next),
+          // ),
           ListTile(
             leading: Icon(Icons.list_alt),
             iconColor: Color(0xff06C09F),
@@ -194,7 +188,7 @@ class SideBarList extends StatelessWidget {
             trailing: Icon(Icons.navigate_next),
           ),
           ListTile(
-            leading: Icon(Icons.list_alt),
+            leading: Icon(Icons.calendar_month),
             iconColor: Color(0xff06C09F),
             focusColor: Color(0xff06C09F),
             title: Text('캘린더',
@@ -202,6 +196,17 @@ class SideBarList extends StatelessWidget {
             onTap: () {
               // Navigator.push(context, MaterialPageRoute(builder: (context) => const MyVegetables()),);
               Get.to(() => CalendarScreen());
+            },
+            trailing: Icon(Icons.navigate_next),
+          ),
+          ListTile(
+            leading: Icon(Icons.storefront),
+            iconColor: Color(0xff06C09F),
+            focusColor: Color(0xff06C09F),
+            title: Text('무럭마켓',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),),
+            onTap: () {
+              Get.to(() => MarketIntro());
             },
             trailing: Icon(Icons.navigate_next),
           ),

@@ -29,7 +29,7 @@ Future<bool> loginUserWithEmail(String email, String pass) async {
         title: "로그인 실패",
         message: failmessage,
         snackPosition: SnackPosition.TOP,
-        duration: const Duration(seconds: 2),
+        duration: const Duration(seconds: 1),
       ));
     }
 
@@ -40,7 +40,7 @@ Future<bool> loginUserWithEmail(String email, String pass) async {
       title: "로그인 성공",
       message: data.getMsg,
       snackPosition: SnackPosition.TOP,
-      duration: const Duration(seconds: 2),
+      duration: const Duration(seconds: 1),
     ));
     if (response.statusCode == 200) {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -50,7 +50,7 @@ Future<bool> loginUserWithEmail(String email, String pass) async {
     return false;
   }
   Get.showSnackbar(const GetSnackBar(
-    duration: Duration(seconds: 2),
+    duration: Duration(seconds: 1),
     snackPosition: SnackPosition.TOP,
     title: "로그인",
     message: "이메일과 비밀번호를 모두 입력해주세요.",
@@ -94,7 +94,7 @@ Future<bool> registerUser(String uemail, String pass, String cpass, String name,
             title: "회원가입 성공",
             message: data.getMsg,
             snackPosition: SnackPosition.TOP,
-            duration: const Duration(seconds: 2),
+            duration: const Duration(seconds: 1),
           )
           );
           return true;
@@ -104,7 +104,7 @@ Future<bool> registerUser(String uemail, String pass, String cpass, String name,
             title: "회원가입 실패",
             message: data.getMsg,
             snackPosition: SnackPosition.TOP,
-            duration: const Duration(seconds: 2),
+            duration: const Duration(seconds: 1),
           )
           );
           return false;
@@ -113,7 +113,7 @@ Future<bool> registerUser(String uemail, String pass, String cpass, String name,
       return false;
     }
     Get.showSnackbar(const GetSnackBar(
-      duration: Duration(seconds: 2),
+      duration: Duration(seconds: 1),
       snackPosition: SnackPosition.TOP,
       title: "회원가입 실패",
       message: "비밀번호를 확인해주세요.",
@@ -121,7 +121,7 @@ Future<bool> registerUser(String uemail, String pass, String cpass, String name,
     return false;
   }
   Get.showSnackbar(const GetSnackBar(
-    duration: Duration(seconds: 2),
+    duration: Duration(seconds: 1),
     snackPosition: SnackPosition.TOP,
     title: "회원가입 실패",
     message: "모든 정보를 입력해주세요.",

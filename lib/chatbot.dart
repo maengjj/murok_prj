@@ -120,7 +120,7 @@ class _ChatBotState extends State<ChatBot> {
     // Add a timer to handle response timeout
     // Add a timer to handle response timeout
     if (isWaitingForResponse) {
-      responseTimer = Timer(Duration(seconds: 10), () {
+      responseTimer = Timer(Duration(seconds: 20), () {
         if (isWaitingForResponse) {
           final timeoutErrorMessage = MockMessage(
             date: DateTime.now(),

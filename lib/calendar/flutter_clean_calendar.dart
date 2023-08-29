@@ -186,8 +186,8 @@ class _CalendarState extends State<Calendar> {
       todayIcon = InkWell(
         onTap: resetToToday,
         child: Padding(
-          padding: EdgeInsets.only(bottom: 24.0), // Adjust vertical padding here
-          child: Text(widget.todayButtonText),
+          padding: EdgeInsets.only(bottom: 10.0), // Adjust vertical padding here
+          // child: Text(widget.todayButtonText),
         ),
       );
     } else {
@@ -386,10 +386,10 @@ class _CalendarState extends State<Calendar> {
           padding: const EdgeInsets.all(0.0),
           itemBuilder: (BuildContext context, int index) {
             final CleanCalendarEvent event = _selectedEvents![index];
-            final String start =
-            DateFormat('HH:mm').format(event.startTime).toString();
-            final String end =
-            DateFormat('HH:mm').format(event.endTime).toString();
+            // final String start =
+            // DateFormat('HH:mm').format(event.startTime).toString();
+            // final String end =
+            // DateFormat('HH:mm').format(event.endTime).toString();
             return SizedBox(
               height: 60.0,
               child: InkWell(
@@ -435,14 +435,14 @@ class _CalendarState extends State<Calendar> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(start,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge),
-                            Text(end,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge),
+                            // Text(start,
+                            //     style: Theme.of(context)
+                            //         .textTheme
+                            //         .bodyLarge),
+                            // Text(end,
+                            //     style: Theme.of(context)
+                            //         .textTheme
+                            //         .bodyLarge),
                           ],
                         ),
                       ),

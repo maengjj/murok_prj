@@ -97,12 +97,12 @@ class _MainPageState extends State<MainPage> {
   var messageString = "";
 
   Future<void> getMyDeviceToken() async {
-    final token = await FirebaseMessaging.instance.getToken();
-    print("내 디바이스 토큰: $token");
+    final devicetoken = await FirebaseMessaging.instance.getToken();
+    print("내 디바이스 토큰: $devicetoken");
 
-    if (token != null) {
+    if (devicetoken != null) {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setString('deviceToken', token);
+      await prefs.setString('devicetoken', devicetoken);
     } else {
       print("토큰이 없습니다.");
     }
@@ -162,7 +162,7 @@ class _MainPageState extends State<MainPage> {
         // 타이머 설정
         _sendGetRequestWithTokenAfterDelay();
 
-        Timer.periodic(Duration(minutes: 1), (timer) {
+        Timer.periodic(Duration(seconds: 10), (timer) {
           _sendGetRequestWithToken();
         });
 
@@ -176,19 +176,29 @@ class _MainPageState extends State<MainPage> {
 
   Future<void> _sendGetRequestWithToken() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String? token = prefs.getString('deviceToken');
+    // final String? devicetoken = prefs.getString('devicetoken');
+
+    // final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? token = prefs.getString('token');
+
+    // print('devicetoken');
+    // print(devicetoken);
 
     if (token != null) {
       final url = Uri.parse('http://15.164.103.233:3000/push');
       final headers = <String, String>{
-        'Authorization': 'Bearer $token',
+        'Content-type': 'application/json',
+        // 'Authorization': 'Bearer $devicetoken',
+        'x-access-token': '$token'
       };
 
       final response = await http.get(url, headers: headers);
 
+      print(response.body);
+
       if (response.statusCode == 200) {
-          print('GET 요청 성공');
-          print('서버 응답 데이터: ${response.body}');
+        print('GET 요청 성공');
+        print('서버 응답 데이터: ${response.body}');
 
       } else {
         print('GET 요청 실패: ${response.statusCode}');
@@ -199,7 +209,7 @@ class _MainPageState extends State<MainPage> {
   }
 
   void _sendGetRequestWithTokenAfterDelay() {
-    Timer(const Duration(seconds: 5), () {
+    Timer(const Duration(seconds: 10), () {
       _sendGetRequestWithToken();
     });
   }
