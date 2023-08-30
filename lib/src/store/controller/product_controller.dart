@@ -45,13 +45,27 @@ class ProductController extends GetxController {
     product.quantity++;
     calculateTotalPrice();
     update();
+    updateTotalPrice();
   }
 
   void decreaseItemQuantity(Product product) {
     product.quantity--;
     calculateTotalPrice();
     update();
+    updateTotalPrice();
   }
+
+
+  void updateTotalPrice() {
+    double totalPrice = 0.0; // Ensure totalPrice is of type double
+    for (Product product in cartProducts) {
+      totalPrice += product.price * product.quantity;
+    }
+    this.totalPrice.value = totalPrice.toInt(); // Convert totalPrice to int if needed
+  }
+
+
+
 
   bool isPriceOff(Product product) => product.off != null;
 

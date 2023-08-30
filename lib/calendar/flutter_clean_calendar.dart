@@ -109,7 +109,7 @@ class Calendar extends StatefulWidget {
     this.events,
     this.dayBuilder,
     this.eventListBuilder,
-    this.hideTodayIcon = false,
+    this.hideTodayIcon = true,
     this.hideArrows = false,
     this.selectedColor,
     this.todayColor,
@@ -183,11 +183,12 @@ class _CalendarState extends State<Calendar> {
     }
 
     if (!widget.hideTodayIcon) {
-      todayIcon = InkWell(
-        onTap: resetToToday,
-        child: Padding(
-          padding: EdgeInsets.only(bottom: 10.0), // Adjust vertical padding here
-          // child: Text(widget.todayButtonText),
+      todayIcon = IconButton( // Change from InkWell to IconButton
+        onPressed: resetToToday,
+        icon: Icon(
+          Icons.today,
+          size: 24,
+          color: Colors.white,
         ),
       );
     } else {

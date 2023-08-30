@@ -24,6 +24,7 @@ class CartScreen extends StatelessWidget {
   //   // );
   // }
 
+
   Widget cartList() {
     return SingleChildScrollView(
       child: Column(
@@ -199,7 +200,7 @@ class CartScreen extends StatelessWidget {
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(padding: const EdgeInsets.all(20)),
           onPressed: controller.isEmptyCart ? null : () {},
-          child: const Text("구매하기"),
+          child: const Text("구매하기", style: TextStyle(fontSize: 18),),
         ),
       ),
     );
@@ -208,6 +209,7 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     controller.getCartItems();
+    controller.updateTotalPrice(); // 합계 업데이트 호출 추가
     return Scaffold(
       // appBar: _appBar(context),
       body: Column(

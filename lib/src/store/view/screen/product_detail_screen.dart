@@ -196,8 +196,8 @@ class ProductDetailScreen extends StatelessWidget {
                               controller.addToCart(product);
                               Get.showSnackbar(
                                 GetBar(
-                                  title: "장바구니에 추가되었습니다",
-                                  message: '감사합니다',
+                                  title: "장바구니에 추가되었습니다.",
+                                  message: '감사합니다.',
                                   snackPosition: SnackPosition.TOP,
                                   duration: const Duration(seconds: 1),
                                 ),
@@ -206,7 +206,7 @@ class ProductDetailScreen extends StatelessWidget {
                           }
                               : null,
                           child: const Text("장바구니 담기",
-                            style: TextStyle(fontSize: 20),),
+                            style: TextStyle(fontSize: 18),),
                           style: ButtonStyle(
                             minimumSize: MaterialStateProperty.all(Size(150, 70)), // 높이와 너비 설정
                           ),

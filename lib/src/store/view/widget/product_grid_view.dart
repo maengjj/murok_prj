@@ -35,7 +35,7 @@ class ProductGridView extends StatelessWidget {
         color: const Color(0xFFE5E6E8),
         borderRadius: BorderRadius.circular(20),
       ),
-      child: Image.asset(product.images[0], scale: 3),
+      child: Image.asset(product.images[0], scale: 5),
     );
   }
 
@@ -106,13 +106,13 @@ class ProductGridView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 20),
+      padding: const EdgeInsets.only(top: 10),
       child: GridView.builder(
         itemCount: items.length,
         shrinkWrap: true,
         physics: const ScrollPhysics(),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          childAspectRatio: 10 / 16,
+          childAspectRatio: 0.7,
           crossAxisCount: 2,
           mainAxisSpacing: 10,
           crossAxisSpacing: 10,
@@ -126,7 +126,7 @@ class ProductGridView extends StatelessWidget {
               footer: _gridItemFooter(product, context),
               child: Column(
                 children: [
-                  SizedBox(height: 80),
+                  SizedBox(height: 40),
                   _gridItemBody(product), // _gridItemBody를 여기에 직접 배치
                   // 원하는 추가 컨텐츠를 여기에 추가할 수 있음
                 ],

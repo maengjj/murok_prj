@@ -10,6 +10,7 @@ import 'package:murok_prj/calendar/flutter_clean_calendar.dart';
 class CalendarScreen extends StatefulWidget {
   const CalendarScreen({Key? key}) : super(key: key);
 
+
   @override
   State<StatefulWidget> createState() {
     return _CalendarScreenState();
@@ -21,6 +22,8 @@ class CalendarScreen extends StatefulWidget {
 class _CalendarScreenState extends State<CalendarScreen> {
 
   final Map<DateTime, List<CleanCalendarEvent>> _events = {};
+
+
 
 
 
@@ -191,6 +194,10 @@ class _CalendarScreenState extends State<CalendarScreen> {
 
 
 
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -217,10 +224,19 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   height: 1.2,
                 ),
               ),
+
               IconButton(
                 onPressed: () {
-                  _handleNewDate(DateTime.now());
-                  // resetToToday(); // Call the function here
+                  //
+                  // DateTime today = DateTime.now();
+                  // _handleNewDate(today);
+                  //
+                  // setState(() {
+                  //   _events[today] = [
+                  //
+                  //   ];
+                  // });
+
                 },
                 icon: Icon(
                   Icons.today,
@@ -257,6 +273,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
       ),
     );
   }
+
+
+
 
   void _handleNewDate(DateTime date) {
     print('Date selected: $date');
