@@ -25,6 +25,7 @@ class MapScreenState extends State<ProfilePage>
   // File? _imageFile;
 
   String phoneNumber = ''; // 전화번호를 저장할 변수
+  String newNick = '';
 
 
 
@@ -256,6 +257,7 @@ class MapScreenState extends State<ProfilePage>
                                             controller: TextEditingController(text: snapshot.data!.nickname),
                                             onChanged: (text) async {
                                               if (_status = true) { // Use '==' for comparison, not '='
+                                                newNick = text;
                                                 print(text);
 
                                               }
@@ -358,6 +360,10 @@ class MapScreenState extends State<ProfilePage>
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('token');
 
+
+    print('debug1');
+    print(phoneNumber);
+
     final url = Uri.parse('http://15.164.103.233:3000/app/users/update'); // 실제 API 엔드포인트로 변경
 
     final response = await http.post(
@@ -366,17 +372,26 @@ class MapScreenState extends State<ProfilePage>
         'Content-Type': 'application/json',
         'x-access-token': '$token', // 요청 헤더 설정
       },
-      body: jsonEncode({'email':'taba@gmail.com', 'phoneNum': phoneNumber, 'status': 0}), // 요청 바디에 전화번호 전달
+      body: jsonEncode({'phoneNum': phoneNumber}), // 요청 바디에 전화번호 전달
     );
 
     print(response.body);
 
     if (response.statusCode == 200) {
-      // 요청이 성공적으로 완료된 경우
-      print('전화번호 업데이트 성공');
+      final jsonResponse = json.decode(response.body);
+      final isSuccess = jsonResponse['isSuccess'];
+      final message = jsonResponse['message'];
+
+      if (isSuccess == true) {
+        // 전화번호 업데이트 성공
+        print('전화번호 업데이트 성공: $message');
+      } else {
+        // 전화번호 업데이트 실패
+        print('전화번호 업데이트 실패: $message');
+      }
     } else {
-      // 요청이 실패한 경우
-      print('전화번호 업데이트 실패');
+      // 서버로의 요청 실패
+      print('서버 요청 실패: ${response.statusCode}');
     }
   }
 

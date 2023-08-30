@@ -84,31 +84,31 @@ class _AlarmNoteState extends State<AlarmNote> {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                Expanded(
-                  child: TextField(
-                    controller: _noteController,
-                  ),
-                ),
-                ElevatedButton(
-                  child: Text('추가'),
-                  onPressed: () => _addNote(Note(_noteController.text)),
-                ),
-              ],
-            ),
-            Expanded(
-              child: ListView(
-                children: _itemList.map((note) => _buildItem(note)).toList(),
-              ),
-            ),
-          ],
-        ),
-      ),
+      // body: Padding(
+      //   padding: const EdgeInsets.all(8.0),
+      //   child: Column(
+      //     children: <Widget>[
+      //       Row(
+      //         children: <Widget>[
+      //           Expanded(
+      //             child: TextField(
+      //               controller: _noteController,
+      //             ),
+      //           ),
+      //           ElevatedButton(
+      //             child: Text('추가'),
+      //             onPressed: () => _addNote(Note(_noteController.text)),
+      //           ),
+      //         ],
+      //       ),
+      //       Expanded(
+      //         child: ListView(
+      //           children: _itemList.map((note) => _buildItem(note)).toList(),
+      //         ),
+      //       ),
+      //     ],
+      //   ),
+      // ),
     );
   }
 

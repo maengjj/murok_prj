@@ -6,10 +6,14 @@ import 'package:murok_prj/src/store/view/widget/empty_cart.dart';
 import 'package:murok_prj/src/store/controller/product_controller.dart';
 import 'package:murok_prj/src/store/view/animation/animated_switcher_wrapper.dart';
 
+import 'package:intl/intl.dart';  // intl 패키지를 임포트
+
+
 final ProductController controller = Get.put(ProductController());
 
 class CartScreen extends StatelessWidget {
   const CartScreen({Key? key}) : super(key: key);
+
 
   // PreferredSizeWidget _appBar(BuildContext context) {
   //   // return AppBar(
@@ -25,6 +29,12 @@ class CartScreen extends StatelessWidget {
       child: Column(
         children: controller.cartProducts.mapWithIndex((index, _) {
           Product product = controller.cartProducts[index];
+
+          // NumberFormat을 사용하여 price 형식화
+          final priceFormatter = NumberFormat('#,##0');
+          final formattedPrice = priceFormatter.format(product.price);
+
+
           return Container(
             width: double.infinity,
             margin: const EdgeInsets.all(15),
@@ -83,8 +93,8 @@ class CartScreen extends StatelessWidget {
                     const SizedBox(height: 5),
                     Text(
                       controller.isPriceOff(product)
-                          ? "\$${product.off}"
-                          : "\$${product.price}",
+                          ? "${formattedPrice}원"
+                          : "${formattedPrice}원",
                       style: const TextStyle(
                         fontWeight: FontWeight.w900,
                         fontSize: 23,
@@ -144,6 +154,13 @@ class CartScreen extends StatelessWidget {
   }
 
   Widget bottomBarTitle() {
+
+
+    final NumberFormat currencyFormat = NumberFormat("#,##0");
+
+
+
+
     return Container(
       margin: const EdgeInsets.only(bottom: 15),
       padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -158,7 +175,7 @@ class CartScreen extends StatelessWidget {
             () {
               return AnimatedSwitcherWrapper(
                 child: Text(
-                  "${controller.totalPrice.value}원",
+                  "${currencyFormat.format(controller.totalPrice.value)}원",
                   key: ValueKey<int>(controller.totalPrice.value),
                   style: const TextStyle(
                     fontSize: 25,

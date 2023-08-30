@@ -132,7 +132,9 @@ class ProductDetailScreen extends StatelessWidget {
                     children: [
                       Text(
                         product.name,
-                        style: Theme.of(context).textTheme.displayMedium,
+                        style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                          fontSize: 30, // 원하는 텍스트 크기로 조절
+                        ),
                       ),
                       const SizedBox(height: 10),
                       // _ratingBar(context),
@@ -143,7 +145,10 @@ class ProductDetailScreen extends StatelessWidget {
                             formattedPrice != null
                                 ? "${formattedPrice}원"
                                 : "${formattedPrice}원",
-                            style: Theme.of(context).textTheme.displayLarge,
+                            style: TextStyle(
+                              fontSize: 30, // 원하는 텍스트 크기로 조절
+                              // 다른 스타일 설정 (옵션)
+                            ),
                           ),
                           const SizedBox(width: 3),
                           Visibility(
@@ -154,14 +159,15 @@ class ProductDetailScreen extends StatelessWidget {
                                 decoration: TextDecoration.lineThrough,
                                 color: Colors.grey,
                                 fontWeight: FontWeight.w500,
+                                fontSize: 30,
                               ),
                             ),
                           ),
                           const Spacer(),
                           Text(
                             product.isAvailable
-                                ? "재고 있음"
-                                : "재고 없음",
+                                ? ""
+                                : "품절",
                             style: const TextStyle(fontWeight: FontWeight.w500),
                           )
                         ],
@@ -185,11 +191,27 @@ class ProductDetailScreen extends StatelessWidget {
                         width: double.infinity,
                         child: ElevatedButton(
                           onPressed: product.isAvailable
-                              ? () => controller.addToCart(product)
+                              ? () {
+                            if (product.isAvailable) {
+                              controller.addToCart(product);
+                              Get.showSnackbar(
+                                GetBar(
+                                  title: "장바구니에 추가되었습니다",
+                                  message: '감사합니다',
+                                  snackPosition: SnackPosition.TOP,
+                                  duration: const Duration(seconds: 1),
+                                ),
+                              );
+                            }
+                          }
                               : null,
-                          child: const Text("장바구니 담기"),
+                          child: const Text("장바구니 담기",
+                            style: TextStyle(fontSize: 20),),
+                          style: ButtonStyle(
+                            minimumSize: MaterialStateProperty.all(Size(150, 70)), // 높이와 너비 설정
+                          ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 )

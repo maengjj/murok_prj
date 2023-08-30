@@ -83,7 +83,9 @@ class _MyVegetablesState extends State<MyVegetables> {
         itemBuilder: (BuildContext context, int index) {
             final item = data[index]['name'];
 
-          return Card(
+            return Dismissible(key: Key(item), child:
+
+          Card(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16.0),
             ),
@@ -122,7 +124,7 @@ class _MyVegetablesState extends State<MyVegetables> {
                           new Text(
                             '심은 날짜 | ' +
                                 DateFormat('yyyy/MM/dd').format(
-                                  DateTime.parse(data[index]["frequency_start"]),
+                                  DateTime.parse(data[index]["created_at"]),
                                 ),
                             style: TextStyle(
                               fontSize: 14,
@@ -154,12 +156,50 @@ class _MyVegetablesState extends State<MyVegetables> {
               ),
               margin: EdgeInsets.fromLTRB(20, 20, 5, 20),
             ),
-          );
+          ),
+              background: Container(color: Colors.red),
+              onDismissed: (direction) {
+                _deleteData(data[index]["id"]); // 데이터 삭제 요청 보내기
+                setState(() {
+                  data.removeAt(index);
+                });
+              },
+            );
         },
       ),
 
     );
   }
+
+  Future<void> _deleteData(int id) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? token = prefs.getString('token');
+
+    final url = Uri.parse('http://15.164.103.233:3000/app/plants/delete?id=${id}'); // 실제 API 엔드포인트로 변경
+
+    final response = await http.post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': '$token', // 요청 헤더 설정
+      },
+      body: jsonEncode({'id': id}), // 요청 바디에 전화번호 전달
+    );
+
+    print(response.body);
+
+
+
+    if (response.statusCode == 200) {
+      // 성공적으로 삭제된 경우의 처리
+      print('Data deleted successfully');
+    } else {
+      // 삭제 실패 시의 처리
+      print('Failed to delete data');
+    }
+  }
+
+
 
   Widget getVegggieImage(name) {
     switch (name) {

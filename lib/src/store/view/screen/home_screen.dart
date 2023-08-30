@@ -91,11 +91,12 @@ class _HomeScreenState extends State<HomeScreen> {
               child: HomeScreen.screens[newIndex],
             ),
             bottomNavigationBar: Container(
-              height: 60, // 원하는 높이로 설정하세요
+              height: 70, // 원하는 높이로 설정하세요
               child: BottomNavyBar(
                 itemCornerRadius: 10,
                 selectedIndex: newIndex,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
+                iconSize: 30,
                 items: AppData.bottomNavyBarItems
                     .map(
                       (item) => BottomNavyBarItem(
