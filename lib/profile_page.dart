@@ -29,6 +29,7 @@ class MapScreenState extends State<ProfilePage>
 
 
 
+
   final FocusNode myFocusNode = FocusNode();
 
   @override
@@ -68,7 +69,7 @@ class MapScreenState extends State<ProfilePage>
                                       shape: BoxShape.circle,
                                       image: new DecorationImage(
                                         image: new ExactAssetImage(
-                                            'images/as.png'),
+                                            'images/circle_muroki.png'),
                                         fit: BoxFit.cover,
                                       ),
                                     )),
@@ -190,7 +191,7 @@ class MapScreenState extends State<ProfilePage>
                                             decoration: InputDecoration(
                                               hintText: "이름 입력해주세요.",
                                             ),
-                                            enabled: !_status,
+                                            enabled: false,
                                             controller: TextEditingController(text: snapshot.data!.name),
                                             onChanged: (text) async {
                                               if (_status = true) { // Use '==' for comparison, not '='
@@ -248,6 +249,7 @@ class MapScreenState extends State<ProfilePage>
                                           return TextField(
                                             controller: TextEditingController(text:''),);
                                         } else if (snapshot.hasData) {
+                                          newNick = snapshot.data!.nickname;
                                           // 데이터 로딩 완료 및 데이터가 있는 경우
                                           return TextField(
                                             decoration: InputDecoration(
@@ -313,6 +315,8 @@ class MapScreenState extends State<ProfilePage>
                                           return TextField(
                                             controller: TextEditingController(text:''),);
                                         } else if (snapshot.hasData) {
+                                          phoneNumber = snapshot.data!.phoneNum;
+
                                           // 데이터 로딩 완료 및 데이터가 있는 경우
                                           return TextField(
                                             decoration: InputDecoration(
@@ -320,7 +324,7 @@ class MapScreenState extends State<ProfilePage>
                                             ),
                                             enabled: !_status,
                                             controller: TextEditingController(text: snapshot.data!.phoneNum),
-                                            onChanged: (text) async {
+                                            onChanged: (text) {
                                               if (_status = true) { // Use '==' for comparison, not '='
                                                 phoneNumber = text;
                                                 print(text);
@@ -356,23 +360,22 @@ class MapScreenState extends State<ProfilePage>
   }
 
 
-  Future<void> updatePhoneNumber(String phoneNumber) async {
+  Future<void> updateUserInfo(String phoneNumber, String newNick) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('token');
 
-
-    print('debug1');
-    print(phoneNumber);
-
-    final url = Uri.parse('http://15.164.103.233:3000/app/users/update'); // 실제 API 엔드포인트로 변경
+    final url = Uri.parse('http://15.164.103.233:3000/app/users/update');
 
     final response = await http.post(
       url,
       headers: {
         'Content-Type': 'application/json',
-        'x-access-token': '$token', // 요청 헤더 설정
+        'x-access-token': '$token',
       },
-      body: jsonEncode({'phoneNum': phoneNumber}), // 요청 바디에 전화번호 전달
+      body: jsonEncode({
+        'phoneNum': phoneNumber,
+        'nickname': newNick,
+      }),
     );
 
     print(response.body);
@@ -383,17 +386,16 @@ class MapScreenState extends State<ProfilePage>
       final message = jsonResponse['message'];
 
       if (isSuccess == true) {
-        // 전화번호 업데이트 성공
-        print('전화번호 업데이트 성공: $message');
+        print('전화번호 및 닉네임 업데이트 성공: $message');
       } else {
-        // 전화번호 업데이트 실패
-        print('전화번호 업데이트 실패: $message');
+        print('전화번호 및 닉네임 업데이트 실패: $message');
       }
     } else {
-      // 서버로의 요청 실패
       print('서버 요청 실패: ${response.statusCode}');
     }
   }
+
+
 
 
 
@@ -430,12 +432,13 @@ class MapScreenState extends State<ProfilePage>
                       borderRadius: BorderRadius.circular(20.0), // Change the radius value as needed
                     ),// Change background color here
                   ),
-                    onPressed: () {
+                    onPressed: () async {
                       setState(() {
                         _status = true;
                         FocusScope.of(context).requestFocus(new FocusNode());
                       });
-                      updatePhoneNumber(phoneNumber);
+                      await updateUserInfo(phoneNumber, newNick);
+
                     },
                     // shape: new RoundedRectangleBorder(
                     //     borderRadius: new BorderRadius.circular(20.0)),

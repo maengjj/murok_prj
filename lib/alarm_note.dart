@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
-import 'package:get/get.dart';
-import 'package:intl/intl.dart';
-
-
 class Note {
   String title;
   bool isDone;
@@ -78,37 +74,37 @@ class _AlarmNoteState extends State<AlarmNote> {
           '알림',
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 24.0,
-            height: 1.2,
+            fontSize: 40.0,
+            fontFamily: 'sans-serif-light',
             color: Colors.white,
           ),
         ),
       ),
-      // body: Padding(
-      //   padding: const EdgeInsets.all(8.0),
-      //   child: Column(
-      //     children: <Widget>[
-      //       Row(
-      //         children: <Widget>[
-      //           Expanded(
-      //             child: TextField(
-      //               controller: _noteController,
-      //             ),
-      //           ),
-      //           ElevatedButton(
-      //             child: Text('추가'),
-      //             onPressed: () => _addNote(Note(_noteController.text)),
-      //           ),
-      //         ],
-      //       ),
-      //       Expanded(
-      //         child: ListView(
-      //           children: _itemList.map((note) => _buildItem(note)).toList(),
-      //         ),
-      //       ),
-      //     ],
-      //   ),
-      // ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                // Expanded(
+                //   child: TextField(
+                //     controller: _noteController,
+                //   ),
+                // ),
+                // ElevatedButton(
+                //   child: Text('추가'),
+                //   onPressed: () => _addNote(Note(_noteController.text)),
+                // ),
+              ],
+            ),
+            Expanded(
+              child: ListView(
+                children: _itemList.map((note) => _buildItem(note)).toList(),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 

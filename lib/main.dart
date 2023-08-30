@@ -160,9 +160,9 @@ class _MainPageState extends State<MainPage> {
           // Get.to(() => ChatBot());
         }
         // 타이머 설정
-        _sendGetRequestWithTokenAfterDelay();
+        // _sendGetRequestWithTokenAfterDelay();
 
-        Timer.periodic(Duration(seconds: 100000000), (timer) {
+        Timer.periodic(Duration(seconds: 10000), (timer) {
           _sendGetRequestWithToken();
         });
 
@@ -208,11 +208,11 @@ class _MainPageState extends State<MainPage> {
     }
   }
 
-  void _sendGetRequestWithTokenAfterDelay() {
-    Timer(const Duration(seconds: 10), () {
-      _sendGetRequestWithToken();
-    });
-  }
+  // void _sendGetRequestWithTokenAfterDelay() {
+  //   Timer(const Duration(seconds: 10), () {
+  //     _sendGetRequestWithToken();
+  //   });
+  // }
 
 
 

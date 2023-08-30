@@ -127,7 +127,7 @@ class _ChatBotState extends State<ChatBot> {
             user: MockChatUser.incomingUser,
             id: DateTime.now().toString(),
             isMe: false,
-            messageKind: MessageKind.text('무럭이가 다른 농부랑 대화 중인가봐요\n조금만 기다려주세요ㅠㅠ'),
+            messageKind: MessageKind.text('앗! 작물 등록에 문제가 발생했어요\n등록할 작물을 다시 말해주세요'),
           );
           setState(() {
             isWaitingForResponse = false;
@@ -243,7 +243,7 @@ class _ChatBotState extends State<ChatBot> {
         user: MockChatUser.incomingUser,
         id: DateTime.now().toString(),
         isMe: false,
-        messageKind: MessageKind.text('무럭이가 다른 농부랑 대화 중인가봐요\n잠시후 다시 시도해주세요ㅠㅠ'),
+        messageKind: MessageKind.text('앗! 작물 등록에 문제가 발생했어요\n등록할 작물을 다시 말해주세요'),
       );
       setState(() {
         isWaitingForResponse = false;

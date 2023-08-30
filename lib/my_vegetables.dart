@@ -183,7 +183,7 @@ class _MyVegetablesState extends State<MyVegetables> {
         'Content-Type': 'application/json',
         'x-access-token': '$token', // 요청 헤더 설정
       },
-      body: jsonEncode({'id': id}), // 요청 바디에 전화번호 전달
+      body: jsonEncode({'id': id}),
     );
 
     print(response.body);
