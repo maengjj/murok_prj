@@ -91,7 +91,7 @@ class IntroPage extends StatelessWidget {
                 // 여기에 추가한 텍스트 부분
                 const SizedBox(height: 40), // 간격을 조절할 수 있습니다.
                 const Text(
-                  "TABA 3기 4조\n장요한, 이진영, 맹지주, 황햬영, 김정현",
+                  "TABA 3기 4조\n장요한, 이진영, 맹지주, 황혜영, 김정현",
                   style: TextStyle(fontSize: 16, color: Colors.white),
                   textAlign: TextAlign.center,
                 ),

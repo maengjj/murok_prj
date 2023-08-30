@@ -157,12 +157,35 @@ class _MyVegetablesState extends State<MyVegetables> {
               margin: EdgeInsets.fromLTRB(20, 20, 5, 20),
             ),
           ),
+              // background: Container(color: Colors.red),
               background: Container(color: Colors.red),
-              onDismissed: (direction) {
-                _deleteData(data[index]["id"]); // 데이터 삭제 요청 보내기
-                setState(() {
-                  data.removeAt(index);
-                });
+              confirmDismiss: (direction) async {
+                return await showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text("작물 삭제"),
+                      content: Text("이 작물을 삭제하시겠습니까?"),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () => Navigator.of(context).pop(false), // 취소 버튼
+                          child: Text("취소"),
+                        ),
+                        TextButton(
+                          onPressed: () async {
+                            Navigator.of(context).pop(true); // 확인 버튼
+                            // 실제 삭제 작업 수행 및 데이터 업데이트
+                            await _deleteData(data[index]["id"]);
+                            setState(() {
+                              data.removeAt(index);
+                            });
+                          },
+                          child: Text("확인"),
+                        ),
+                      ],
+                    );
+                  },
+                );
               },
             );
         },
