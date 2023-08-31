@@ -225,25 +225,25 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 ),
               ),
 
-              IconButton(
-                onPressed: () {
-                  //
-                  // DateTime today = DateTime.now();
-                  // _handleNewDate(today);
-                  //
-                  // setState(() {
-                  //   _events[today] = [
-                  //
-                  //   ];
-                  // });
-
-                },
-                icon: Icon(
-                  Icons.today,
-                  size: 24,
-                  color: Colors.white,
-                ),
-              ),
+              // IconButton(
+              //   onPressed: () {
+              //     //
+              //     // DateTime today = DateTime.now();
+              //     // _handleNewDate(today);
+              //     //
+              //     // setState(() {
+              //     //   _events[today] = [
+              //     //
+              //     //   ];
+              //     // });
+              //
+              //   },
+              //   icon: Icon(
+              //     Icons.today,
+              //     size: 24,
+              //     color: Colors.white,
+              //   ),
+              // ),
             ],
           ),
           backgroundColor: Color(0xff06C09F), toolbarHeight: 80),

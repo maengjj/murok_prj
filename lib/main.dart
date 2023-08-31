@@ -162,7 +162,7 @@ class _MainPageState extends State<MainPage> {
         // 타이머 설정
         // _sendGetRequestWithTokenAfterDelay();
 
-        Timer.periodic(Duration(seconds: 10000), (timer) {
+        Timer.periodic(Duration(minutes: 5), (timer) {
           _sendGetRequestWithToken();
         });
 
@@ -170,6 +170,29 @@ class _MainPageState extends State<MainPage> {
       })
     });
     super.initState();
+
+
+
+    // 오전 9시에 알림 요청을 보내기 위한 타이머 설정
+    final now = DateTime.now();
+    final targetTime = DateTime(now.year, now.month, now.day, 9, 0, 0); // 오전 9시로 설정
+    final difference = targetTime.difference(now);
+
+    if (difference.isNegative) {
+      // 이미 9시가 지난 경우, 다음날 9시로 설정
+      targetTime.add(const Duration(days: 1));
+    }
+
+    Timer(difference, () {
+      _sendGetRequestWithToken(); // 오전 9시에 알림 요청 보내기
+      // 다음 날에도 알림 요청 보내도록 타이머 재설정
+      Timer.periodic(const Duration(days: 1), (_) {
+        _sendGetRequestWithToken();
+      });
+    });
+
+
+
   }
 
 
