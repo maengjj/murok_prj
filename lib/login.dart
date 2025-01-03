@@ -95,8 +95,8 @@ class LoginPage extends StatelessWidget {
                             minWidth: double.infinity,
                             height: 60,
                             onPressed: () {
-                              // Get.to(() => LayoutPage());
-                               loginUser(emailController, passController);  //로그인 구현!!!!
+                               Get.to(() => LayoutPage());
+                               //loginUser(emailController, passController);  //로그인 구현!!!!
                             },
                             color: const Color(0xFFFFFFFF),
                             elevation: 0,

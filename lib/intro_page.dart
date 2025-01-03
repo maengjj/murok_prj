@@ -97,7 +97,7 @@ class IntroPage extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         color: Color(0xFF06C09F),
         child: const Text(
-          "TABA 3기 4조\n장요한, 맹지주, 이진영, 김정현, 황혜영",
+          "2023 TABA 3기\n장요한, 이진영, 맹지주, 김정현, 황혜영",
           style: TextStyle(fontSize: 16, color: Colors.white),
           textAlign: TextAlign.center,
         ),
